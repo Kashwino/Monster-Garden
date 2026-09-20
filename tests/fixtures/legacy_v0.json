@@ -1,0 +1,9 @@
+{
+  "schema_version": 0,
+  "coins": 143,
+  "progression": {"level": 2, "xp": 11},
+  "inventory": {"witness_bud": 7, "murmur_cap": 3},
+  "plots": [],
+  "discovered": ["witness_bud"],
+  "last_seen": 1700000000
+}

@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "families": {
+    "ocular": {
+      "name": "Ocular",
+      "silhouette": "eye"
+    },
+    "fungal": {
+      "name": "Fungal",
+      "silhouette": "fungus"
+    },
+    "crystalline": {
+      "name": "Crystalline",
+      "silhouette": "crystal"
+    },
+    "tendril": {
+      "name": "Tendril",
+      "silhouette": "tendril"
+    }
+  },
+  "species": [
+    {
+      "id": "witness_bud",
+      "name": "Witness Bud",
+      "description": "It remembers every hand that has touched the soil.",
+      "family": "ocular",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "sell_value": 8,
+      "seed_cost": 6,
+      "xp": 6,
+      "unlock": {
+        "type": "level",
+        "value": 1
+      },
+      "genes": {
+        "hue": 0.36,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.12,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "murmur_cap",
+      "name": "Murmur Cap",
+      "description": "Beneath its gills, a hundred small mouths whisper.",
+      "family": "fungal",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 3,
+      "sell_value": 6,
+      "seed_cost": 7,
+      "xp": 7,
+      "unlock": {
+        "type": "level",
+        "value": 1
+      },
+      "genes": {
+        "hue": 0.82,
+        "scale": 0.95,
+        "appendages": 4,
+        "glow": 0.27,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "nerve_knot",
+      "name": "Nerve Knot",
+      "description": "A tangle of roots that recoils from its own shadow.",
+      "family": "tendril",
+      "rarity": "Common",
+      "grow_seconds": 45,
+      "yield": 2,
+      "sell_value": 14,
+      "seed_cost": 12,
+      "xp": 10,
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "genes": {
+        "hue": 0.09,
+        "scale": 1.05,
+        "appendages": 5,
+        "glow": 0.42,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "glass_hunger",
+      "name": "Glass Hunger",
+      "description": "Every shard is a tooth. Every chime is an appetite.",
+      "family": "crystalline",
+      "rarity": "Common",
+      "grow_seconds": 60,
+      "yield": 2,
+      "sell_value": 19,
+      "seed_cost": 18,
+      "xp": 12,
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "genes": {
+        "hue": 0.49,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "sleepless_orb",
+      "name": "Sleepless Orb",
+      "description": "An unblinking pupil follows moons that are not there.",
+      "family": "ocular",
+      "rarity": "Uncommon",
+      "grow_seconds": 90,
+      "yield": 3,
+      "sell_value": 22,
+      "seed_cost": 28,
+      "xp": 16,
+      "unlock": {
+        "type": "level",
+        "value": 3
+      },
+      "genes": {
+        "hue": 0.63,
+        "scale": 0.95,
+        "appendages": 3,
+        "glow": 0.12,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "choir_of_mold",
+      "name": "Choir of Mold",
+      "description": "It sings through spore sacs in a borrowed voice.",
+      "family": "fungal",
+      "rarity": "Uncommon",
+      "grow_seconds": 120,
+      "yield": 3,
+      "sell_value": 31,
+      "seed_cost": 38,
+      "xp": 20,
+      "unlock": {
+        "type": "level",
+        "value": 4
+      },
+      "genes": {
+        "hue": 0.16,
+        "scale": 1.05,
+        "appendages": 4,
+        "glow": 0.27,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "vein_lantern",
+      "name": "Vein Lantern",
+      "description": "Light crawls through translucent roots like trapped lightning.",
+      "family": "tendril",
+      "rarity": "Rare",
+      "grow_seconds": 240,
+      "yield": 3,
+      "sell_value": 48,
+      "seed_cost": 60,
+      "xp": 30,
+      "unlock": {
+        "type": "level",
+        "value": 5
+      },
+      "genes": {
+        "hue": 0.43,
+        "scale": 0.85,
+        "appendages": 5,
+        "glow": 0.42,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "prism_wound",
+      "name": "Prism Wound",
+      "description": "A wound in the ground that heals into impossible angles.",
+      "family": "crystalline",
+      "rarity": "Rare",
+      "grow_seconds": 480,
+      "yield": 4,
+      "sell_value": 65,
+      "seed_cost": 95,
+      "xp": 40,
+      "unlock": {
+        "type": "level",
+        "value": 6
+      },
+      "genes": {
+        "hue": 0.9,
+        "scale": 0.95,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "lidless_saint",
+      "name": "Lidless Saint",
+      "description": "A halo of eyes blesses nothing and watches everything.",
+      "family": "ocular",
+      "rarity": "Exotic",
+      "grow_seconds": 900,
+      "yield": 4,
+      "sell_value": 92,
+      "seed_cost": 140,
+      "xp": 55,
+      "unlock": {
+        "type": "level",
+        "value": 7
+      },
+      "genes": {
+        "hue": 0.12,
+        "scale": 1.05,
+        "appendages": 3,
+        "glow": 0.12,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "cathedral_rot",
+      "name": "Cathedral Rot",
+      "description": "Its bell-shaped chambers shelter a breathing darkness.",
+      "family": "fungal",
+      "rarity": "Exotic",
+      "grow_seconds": 1800,
+      "yield": 5,
+      "sell_value": 130,
+      "seed_cost": 210,
+      "xp": 75,
+      "unlock": {
+        "type": "level",
+        "value": 8
+      },
+      "genes": {
+        "hue": 0.71,
+        "scale": 0.85,
+        "appendages": 4,
+        "glow": 0.27,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "umbilical_star",
+      "name": "Umbilical Star",
+      "description": "A small fallen star still attached to something above.",
+      "family": "tendril",
+      "rarity": "Mythic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "sell_value": 190,
+      "seed_cost": 330,
+      "xp": 105,
+      "unlock": {
+        "type": "level",
+        "value": 9
+      },
+      "genes": {
+        "hue": 0.02,
+        "scale": 0.95,
+        "appendages": 5,
+        "glow": 0.42,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "echo_obelisk",
+      "name": "Echo Obelisk",
+      "description": "It casts tomorrow\u2019s shadow and hums yesterday\u2019s name.",
+      "family": "crystalline",
+      "rarity": "Mythic",
+      "grow_seconds": 7200,
+      "yield": 6,
+      "sell_value": 270,
+      "seed_cost": 500,
+      "xp": 150,
+      "unlock": {
+        "type": "level",
+        "value": 10
+      },
+      "genes": {
+        "hue": 0.55,
+        "scale": 1.05,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    }
+  ]
+}
