@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "families": {
     "ocular": {
       "name": "Ocular",
@@ -42,7 +42,24 @@
         "speed": 0.7
       },
       "mesh": {
-        "primitive": "eye"
+        "primitive": "eye",
+        "stages": {
+          "seed": {
+            "scene": "res://assets/monsters/witness/seed.glb"
+          },
+          "sprout": {
+            "scene": "res://assets/monsters/witness/sprout.glb"
+          },
+          "juvenile": {
+            "scene": "res://assets/monsters/witness/juvenile.glb"
+          },
+          "mature": {
+            "scene": "res://assets/monsters/witness/mature.glb"
+          },
+          "blooming": {
+            "scene": "res://assets/monsters/witness/blooming.glb"
+          }
+        }
       }
     },
     {

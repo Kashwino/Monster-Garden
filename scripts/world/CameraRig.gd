@@ -74,4 +74,4 @@ func _pan(relative: Vector2) -> void:
 
 func reset_view() -> void:
 	position = Vector3.ZERO
-	camera.size = 17.5
+	camera.size = 20.0

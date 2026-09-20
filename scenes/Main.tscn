@@ -44,7 +44,7 @@ script = ExtResource("2")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
 projection = 1
-size = 17.5
+size = 20.0
 near = 0.1
 far = 80.0
 current = true

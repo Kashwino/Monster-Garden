@@ -25,6 +25,8 @@ var _tab: String = ""
 var _refresh_pending := false
 var _coin_tween: Tween
 var _display_coins: float = 120
+var _order_status: Label
+var _order_button: Button
 
 func _ready() -> void:
 	_root = Control.new()
@@ -246,6 +248,10 @@ func _roll_coins() -> void:
 func _refresh() -> void:
 	if Game.plots.is_empty():
 		return
+	if _tab == "orders" and not BuyerOrders.active.is_empty() and is_instance_valid(_order_status):
+		var order := BuyerOrders.active
+		_order_status.text = "%d / %d collected · %s left" % [Inventory.count_species(order.species_id), order.quantity, _duration(maxi(0, int(float(order.expires_at) - Game.now()))) ]
+		_order_button.disabled = not BuyerOrders.can_fulfill()
 	_coins.text = "%d  coins" % int(_display_coins)
 	_level.text = "KEEPER %02d    ·    %d / %d XP" % [LevelXP.level, LevelXP.xp, LevelXP.required_xp()]
 	_xp.max_value = LevelXP.required_xp()
@@ -343,10 +349,12 @@ func _render_modal() -> void:
 				var order := BuyerOrders.active
 				var entry := Catalog.get_species(order.species_id)
 				var column := _card("A parcel for the other side", "Bring %d %s to the night courier." % [order.quantity, entry.name])
-				column.add_child(_label("%d / %d collected · %s left" % [Inventory.count_species(order.species_id), order.quantity, _duration(maxi(0, int(float(order.expires_at) - Game.now())))], 14, MUTED))
+				_order_status = _label("%d / %d collected · %s left" % [Inventory.count_species(order.species_id), order.quantity, _duration(maxi(0, int(float(order.expires_at) - Game.now())))], 14, MUTED)
+				column.add_child(_order_status)
 				column.add_child(_label("REWARD   %d coins  +  %d XP" % [order.coins, order.xp], 15, GOLD))
 				var button := _button("Fulfil delivery", func() -> void: BuyerOrders.fulfill(), true)
 				button.disabled = not BuyerOrders.can_fulfill()
+				_order_button = button
 				column.add_child(button)
 			_card("Worth the wait", "Courier orders pay double the basket price. Requests expire after 15 minutes; the next courier arrives after a short cooldown.")
 		"codex":

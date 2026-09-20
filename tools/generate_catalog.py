@@ -29,4 +29,5 @@ for i,(sid,name,desc,family,level,grow,yield_,sell,cost,xp,hue) in enumerate(row
         **{'yield':yield_},sell_value=sell,seed_cost=cost,xp=xp,unlock={'type':'level','value':level},
         genes=dict(hue=hue,scale=0.85+(i%3)*0.1,appendages=3+i%4,glow=0.12+(i%4)*0.15,speed=0.7+(i%3)*0.3),
         mesh=dict(primitive=families[family]['silhouette'])))
-(ROOT/'data/catalog.json').write_text(json.dumps(dict(version=1,families=families,species=species),indent=2)+'\n')
+species[0]['mesh']['stages']={s:{'scene':f'res://assets/monsters/witness/{s}.glb'} for s in ['seed','sprout','juvenile','mature','blooming']}
+(ROOT/'data/catalog.json').write_text(json.dumps(dict(version=2,families=families,species=species),indent=2)+'\n')

@@ -119,7 +119,7 @@ func _on_level_up(level: int) -> void:
 	Events.toast_requested.emit("LEVEL %d · +25 coins · new seeds await" % level)
 
 func snapshot() -> Dictionary:
-	return {"plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "coins": Economy.coins,
+	return {"catalog_version": 2, "plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "coins": Economy.coins,
 		"progression": LevelXP.snapshot(), "discovered": discovered.duplicate(), "orders": BuyerOrders.snapshot(),
 		"last_seen": now()}
 

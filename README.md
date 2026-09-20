@@ -3,6 +3,8 @@
 A portrait isometric farming game about cultivating the beautifully strange.
 Built with **Godot 4.3 / GDScript / Mobile renderer** for Android.
 
+![In-game portrait garden, captured in Godot](docs/images/garden.png)
+
 ## Play in the editor
 
 1. Clone this repository, open Godot 4.3, and import `project.godot`.
@@ -23,13 +25,18 @@ Growth continues while closed; reopen to see a completion summary.
 - Real-time timestamp growth, planting costs, harvested inventory, selling, XP.
 - Gene-aware inventory stacks from day one (species + stable gene hash).
 - A courier order with expiry and cooldown, catalogue/shop and field notes.
-- Central procedural AssetFactory; plants pulse and pop into each growth stage.
+- Central AssetFactory: GLB scene paths with procedural fallback; five original Witness Bud growth models.
+- Gene-driven hue/scale/glow and optional appendages, isolated per imported scene instance.
+- Plants sway and pop into each growth stage.
 - Versioned local JSON saves, backup, legacy inventory migration, future-version protection.
 - Android ARM64 export preset. No paid services, store SDK, or account required.
 
 This repository started empty. There was no previous game or real legacy save to inspect.
+An actual foundation v1 save is included for testing the art-stage migration.
 The legacy fixtures describe this project's supported schema; they do not claim compatibility
 with an unseen earlier implementation.
+
+See [the art-swap guide](docs/ART_PIPELINE.md) and [verification notes](docs/TESTING.md).
 
 ## Android build
 
@@ -48,6 +55,7 @@ After importing in Godot 4.3:
 
 ```sh
 MONSTER_GARDEN_SAVE_PATH=user://integration-test.json godot --headless --path . --script tests/run_tests.gd
+MONSTER_GARDEN_SAVE_PATH=user://art-test.json godot --headless --path . --script tests/art_tests.gd
 ```
 
 The isolated test save is deleted afterwards. The future-version protection test

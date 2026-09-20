@@ -1,0 +1,170 @@
+{
+	"coins": 120,
+	"discovered": [],
+	"inventory": [],
+	"last_modified": 1789926306,
+	"last_seen": 1789926306,
+	"orders": {
+		"active": {
+			"coins": 32,
+			"expires_at": 1789927206,
+			"id": "order_1789926306_0",
+			"quantity": 2,
+			"species_id": "witness_bud",
+			"xp": 14
+		},
+		"fulfilled": 0,
+		"next_at": 0
+	},
+	"plots": [
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		}
+	],
+	"progression": {
+		"level": 1,
+		"xp": 0
+	},
+	"schema_version": 1
+}

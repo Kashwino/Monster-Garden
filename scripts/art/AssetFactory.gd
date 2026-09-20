@@ -2,6 +2,8 @@ extends Node
 ## All mesh creation lives here. Callers request IDs, never resource paths.
 const Motion = preload("res://scripts/art/MonsterVisual.gd")
 var _materials: Dictionary = {}
+var _scenes: Dictionary = {}
+var _warned: Dictionary = {}
 
 func create(id: String, stage: String = "blooming", genes: Dictionary = {}) -> Node3D:
 	var entry := Catalog.get_species(id)
@@ -12,12 +14,89 @@ func create(id: String, stage: String = "blooming", genes: Dictionary = {}) -> N
 	root.name = id + "_" + stage
 	root.set_script(Motion)
 	root.set("pulse_speed", float(clean.speed))
+	# Art-swap seam: the catalogue is the only place that knows scene paths.
+	var spec := resolve_spec(entry, stage)
+	var scene_path := String(spec.get("scene", ""))
+	var model := _instantiate_scene(scene_path)
+	if model != null:
+		root.add_child(model)
+		_apply_genes(model, clean)
+		model.scale *= float(spec.get("scale", 1.0))
+		root.scale = Vector3.ONE * float(clean.scale)
+		root.set_meta("asset_source", scene_path)
+		root.set_meta("growth_stage", stage)
+		return root
 	var color := Color.from_hsv(float(clean.hue), 0.52, 0.85)
-	var shape := String(entry.mesh.get("primitive", "eye"))
+	var shape := String(spec.get("primitive", "eye"))
 	_build_creature(root, shape, stage, color, clean)
 	var stage_scale: float = {"seed": 0.28, "sprout": 0.45, "juvenile": 0.65, "mature": 0.88, "blooming": 1.0}.get(stage, 1.0)
 	root.scale = Vector3.ONE * float(clean.scale) * stage_scale
+	root.set_meta("asset_source", "primitive:" + shape)
+	root.set_meta("growth_stage", stage)
 	return root
+
+func resolve_spec(entry: Dictionary, stage: String) -> Dictionary:
+	var family: Dictionary = Catalog.families.get(entry.get("family", ""), {})
+	var spec: Dictionary = family.get("mesh", {}).duplicate(true)
+	spec.merge(entry.get("mesh", {}), true)
+	var stages: Dictionary = spec.get("stages", {})
+	var variant: Variant = stages.get(stage, {})
+	if variant is String:
+		spec["scene"] = String(variant)
+	elif variant is Dictionary:
+		var stage_spec := variant as Dictionary
+		spec.merge(stage_spec, true)
+	return spec
+
+func _instantiate_scene(path: String) -> Node3D:
+	if path.is_empty():
+		return null
+	if not path.begins_with("res://") or not ResourceLoader.exists(path):
+		_warn_once(path, "Asset missing; using its catalog primitive: " + path)
+		return null
+	if not _scenes.has(path):
+		var resource := ResourceLoader.load(path)
+		if not resource is PackedScene:
+			_warn_once(path, "Asset is not an instantiable scene: " + path)
+			return null
+		_scenes[path] = resource as PackedScene
+	var packed := _scenes[path] as PackedScene
+	var instance := packed.instantiate()
+	if not instance is Node3D:
+		instance.free()
+		_warn_once(path, "Asset root must be Node3D: " + path)
+		return null
+	return instance as Node3D
+
+func _warn_once(key: String, message: String) -> void:
+	if not _warned.has(key):
+		_warned[key] = true
+		push_warning(message)
+
+func _apply_genes(node: Node, genes: Dictionary) -> void:
+	if node is Node3D:
+		var spatial := node as Node3D
+		if String(spatial.name).begins_with("Appendage_"):
+			spatial.visible = String(spatial.name).trim_prefix("Appendage_").to_int() < int(genes.appendages)
+	if node is MeshInstance3D:
+		var mesh_instance := node as MeshInstance3D
+		if mesh_instance.mesh != null:
+			for surface: int in mesh_instance.mesh.get_surface_count():
+				var source := mesh_instance.get_active_material(surface)
+				if source is StandardMaterial3D:
+					var standard := source as StandardMaterial3D
+					if standard.resource_name.begins_with("Gene"):
+						# Never mutate imported/shared materials: genes belong to an instance.
+						var unique := standard.duplicate() as StandardMaterial3D
+						unique.albedo_color = Color.from_hsv(float(genes.hue), 0.48, 0.82)
+						if standard.resource_name.begins_with("GeneGlow"):
+							unique.albedo_color = unique.albedo_color.lightened(0.25)
+							unique.emission_enabled = true
+							unique.emission = unique.albedo_color
+							unique.emission_energy_multiplier = float(genes.glow) * 2.0
+						mesh_instance.set_surface_override_material(surface, unique)
+	for child: Node in node.get_children():
+		_apply_genes(child, genes)
 
 func _build_creature(root: Node3D, shape: String, stage: String, color: Color, genes: Dictionary) -> void:
 	var body := material(color)
@@ -121,7 +200,7 @@ func create_plot(unlocked: bool) -> Node3D:
 func create_island() -> Node3D:
 	var root := Node3D.new()
 	box(root, Vector3(0, -0.62, 0), Vector3(7.1, 0.68, 7.1), Color("2b4240"))
-	box(root, Vector3(0, -0.32, 0), Vector3(7.3, 0.15, 7.3), Color("51735a"))
+	box(root, Vector3(0, -0.32, 0), Vector3(7.3, 0.15, 7.3), Color("3a5545"))
 	# Border stones and luminous alien reeds; deterministic scene dressing.
 	for i: int in 12:
 		var angle := i * TAU / 12.0
