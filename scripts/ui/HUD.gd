@@ -250,10 +250,6 @@ func _roll_coins() -> void:
 func _refresh() -> void:
 	if Game.plots.is_empty():
 		return
-	if _tab == "orders" and not BuyerOrders.active.is_empty() and is_instance_valid(_order_status):
-		var order := BuyerOrders.active
-		_order_status.text = "%d / %d collected · %s left" % [Inventory.count_species(order.species_id), order.quantity, _duration(maxi(0, int(float(order.expires_at) - Game.now()))) ]
-		_order_button.disabled = not BuyerOrders.can_fulfill()
 	_coins.text = "%d  coins" % int(_display_coins)
 	_level.text = "KEEPER %02d    ·    %d / %d XP" % [LevelXP.level, LevelXP.xp, LevelXP.required_xp()]
 	_xp.max_value = LevelXP.required_xp()
@@ -355,20 +351,7 @@ func _render_modal() -> void:
 				var column := _card("%s × %d" % [entry.name, count], "Individual genes are preserved in your harvest stacks.")
 				column.add_child(_button("Sell all · %d coins" % (count * int(entry.sell_value)), func() -> void: Economy.sell(id, count), true))
 		"orders":
-			if BuyerOrders.active.is_empty():
-				_card("The courier will return", "A new request will arrive shortly. Close and reopen this board to check.")
-			else:
-				var order := BuyerOrders.active
-				var entry := Catalog.get_species(order.species_id)
-				var column := _card("A parcel for the other side", "Bring %d %s to the night courier." % [order.quantity, entry.name])
-				_order_status = _label("%d / %d collected · %s left" % [Inventory.count_species(order.species_id), order.quantity, _duration(maxi(0, int(float(order.expires_at) - Game.now())))], 14, MUTED)
-				column.add_child(_order_status)
-				column.add_child(_label("REWARD   %d coins  +  %d XP" % [order.coins, order.xp], 15, GOLD))
-				var button := _button("Fulfil delivery", func() -> void: BuyerOrders.fulfill(), true)
-				button.disabled = not BuyerOrders.can_fulfill()
-				_order_button = button
-				column.add_child(button)
-			_card("Worth the wait", "Courier orders pay double the basket price. Requests expire after 15 minutes; the next courier arrives after a short cooldown.")
+			Extra.orders(self)
 		"codex":
 			_card("%d / %d specimens recorded" % [Game.discovered.size(), Catalog.species.size()], "Ten families. One hundred and twenty strange lives. Harvest a species to record it in your field notes.", LIME)
 			for id: String in Catalog.species:

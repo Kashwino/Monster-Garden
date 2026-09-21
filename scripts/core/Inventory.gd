@@ -117,3 +117,27 @@ func restore_seeds(data: Array) -> void:
 		if value is Dictionary:
 			var seed := value as Dictionary
 			add_seed(seed.get("species_id", ""), seed.get("genes", {}), int(seed.get("quantity", 0)))
+
+func matches_request(stack: Dictionary, request: Dictionary) -> bool:
+	var id:=String(stack.species_id)
+	if request.has("species_id") and request.species_id != id: return false
+	if request.has("family") and Catalog.get_species(id).family != request.family: return false
+	return float(stack.genes.glow) >= float(request.get("min_glow",0))
+
+func plan_requests(requests: Array) -> Dictionary:
+	var ordered:=requests.duplicate(true)
+	# Reserve restrictive genes before generic quantities, avoiding double consumption.
+	ordered.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return float(a.get("min_glow",0)) > float(b.get("min_glow",0)))
+	var taken: Dictionary={}
+	for request: Dictionary in ordered:
+		var remaining:=int(request.get("quantity",0))
+		if remaining<=0: return {}
+		for stack: Dictionary in stacks:
+			if not matches_request(stack,request): continue
+			var amount:=mini(remaining,int(stack.quantity)-int(taken.get(stack.key,0)))
+			if amount>0:
+				taken[stack.key]=int(taken.get(stack.key,0))+amount
+				remaining-=amount
+			if remaining==0: break
+		if remaining>0: return {}
+	return taken

@@ -44,3 +44,27 @@ static func events(h: Node) -> void:
 		var button: Button = h._button("Claim species" if UnlockManager.season_active(id) else "Outside event window", func() -> void: UnlockManager.claim_season(id); h._queue_modal_refresh(), true)
 		button.disabled = not UnlockManager.season_active(id)
 		c.add_child(button)
+
+static func orders(h: Node) -> void:
+	h._card("Courier reputation %d · tier %d" % [BuyerOrders.reputation,BuyerOrders.tier()], "Deliveries raise reputation. Expired requests lower it. New tiers add mixed and gene-specific requests.")
+	for i: int in BuyerOrders.slots.size():
+		var slot:=BuyerOrders.slots[i]
+		var order: Dictionary=slot.order
+		if order.is_empty():
+			h._card("Courier %d is returning"%(i+1),"This slot refills after its cooldown.")
+			continue
+		var lines: PackedStringArray=[]
+		for request: Dictionary in order.requests:
+			var name:=String(Catalog.get_species(request.species_id).name) if request.has("species_id") else String(request.family).capitalize()+" family"
+			lines.append("%d × %s%s"%[request.quantity,name," · glow ≥ %.2f"%request.min_glow if request.has("min_glow") else ""])
+		var c: VBoxContainer=h._card("%d / %s request"%[i+1,String(order.type).capitalize()],"\n".join(lines))
+		var countdown: Label=h._label("",13)
+		c.add_child(countdown)
+		var timer:=Timer.new()
+		timer.wait_time=1
+		var update:=func() -> void: countdown.text="%s left · %d coins · %d XP"%[h._duration(maxi(0,int(float(order.expires_at)-Game.now()))),order.coins,order.xp]
+		update.call();timer.timeout.connect(update);c.add_child(timer);timer.start()
+		var fulfill: Button=h._button("Fulfil delivery",func() -> void: BuyerOrders.fulfill(i),true)
+		fulfill.disabled=not BuyerOrders.can_fulfill(i)
+		c.add_child(fulfill)
+		c.add_child(h._button("Reroll · %d coins"%BuyerOrders.reroll_cost(),func() -> void: BuyerOrders.reroll(i)))

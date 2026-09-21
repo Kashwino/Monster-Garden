@@ -69,6 +69,28 @@ func run() -> void:
 	check(quests.claimed.has("keeper_harvest"), "daily rotation preserves progression claims")
 	quests.reconcile(game.now())
 	check(quests.utc_date>old_date, "clock rollback cannot reclaim yesterday’s daily rewards")
+	var orders := root.get_node("BuyerOrders")
+	orders.restore({})
+	check(orders.slots.size()==3, "three simultaneous order slots")
+	orders.reputation=30
+	economy.coins=1000
+	check(orders.reroll(2) and orders.slots[2].order.type=="gene", "high reputation enables gene orders")
+	check(orders.reroll(1) and orders.slots[1].order.type=="mixed", "second tier enables mixed orders")
+	inventory.stacks.clear()
+	var low: Dictionary=genes.duplicate(true);low.glow=.1
+	inventory.add_crop("witness_bud",low,3)
+	inventory.add_crop("witness_bud",genes,1)
+	orders.slots[0].order={"id":"gene_test","type":"gene","requests":[{"family":"ocular","quantity":2,"min_glow":.45}],"coins":30,"xp":5,"expires_at":game.now()+60}
+	check(not orders.can_fulfill(0), "gene orders reject low-glow substitutes")
+	check(not orders.fulfill(0) and inventory.count_species("witness_bud")==4, "unsatisfied gene request consumes nothing")
+	inventory.add_crop("witness_bud",genes,1)
+	check(orders.fulfill(0) and inventory.count_species("witness_bud")==3, "gene order consumes only matching units")
+	check(orders.reputation==33, "delivery raises reputation")
+	orders.slots[0].order={"id":"expired","type":"simple","requests":[{"species_id":"witness_bud","quantity":1}],"coins":2,"xp":1,"expires_at":game.now()-1}
+	orders.refresh()
+	check(orders.slots[0].order.is_empty() and orders.reputation==32, "expiry vacates slot and lowers reputation")
+	orders.refresh()
+	check(orders.reputation==32, "expiry penalty is applied once")
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary
