@@ -17,3 +17,5 @@ signal settings_changed
 
 signal application_paused
 signal application_resumed
+
+signal cloud_choice(choice: String)

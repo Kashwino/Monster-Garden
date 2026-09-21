@@ -13,6 +13,7 @@ var _autosave: Timer
 
 func _ready() -> void:
 	# Defer until all autoloads, including the order system, exist.
+	SaveManager.cloud_loaded.connect(_apply_cloud)
 	call_deferred("start_session")
 
 func now() -> float:
@@ -193,3 +194,15 @@ func _notification(what: int) -> void:
 		for i: int in plots.size():
 			plot_changed.emit(i)
 		Events.application_resumed.emit()
+
+func _apply_cloud(payload: Dictionary) -> void:
+	_loaded=false
+	plots.clear()
+	_restore(payload)
+	for key: String in SAVE_MODULES:
+		get_node("/root/"+SAVE_MODULES[key]).restore(payload.get(key,{}))
+	BuyerOrders.restore(payload.get("orders",{}))
+	_loaded=true
+	restored.emit()
+	for i: int in plots.size(): plot_changed.emit(i)
+	Economy.changed.emit()

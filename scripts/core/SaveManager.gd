@@ -1,16 +1,37 @@
 extends Node
 ## Only persistence interface: save_data(payload) and load_data().
 ## Backend seam: a future cloud adapter must keep local durability first.
-const VERSION := 8
+const VERSION := 9
 var save_path: String = OS.get_environment("MONSTER_GARDEN_SAVE_PATH") if OS.has_environment("MONSTER_GARDEN_SAVE_PATH") else "user://garden.json"
 var write_blocked: bool = false
+signal cloud_loaded(payload: Dictionary)
+const Conflict=preload("res://scripts/services/SaveConflict.gd")
+var backend: Node
+var _cache: Dictionary={}
+var _digest:=""
+func _ready() -> void:
+	backend=Node.new()
+	backend.set_script(preload("res://scripts/services/FirebaseBackend.gd"))
+	add_child(backend)
+	backend.supported_version=VERSION
+	backend.data_ready.connect(_accept_cloud)
+	backend.state_changed.connect(_store_cloud_state)
+
 
 func save_data(payload: Dictionary) -> bool:
 	if write_blocked:
 		return false
 	var data := payload.duplicate(true)
 	data["schema_version"] = VERSION
-	data["last_modified"] = int(Time.get_unix_time_from_system())
+	var digest:=Conflict.fingerprint(data)
+	data["last_modified"] = int(_cache.get("last_modified",0)) if digest==_digest else maxi(int(Time.get_unix_time_from_system()*1000),int(_cache.get("last_modified",0))+1)
+	data["cloud_state"]=backend.state()
+	if not _write_local(data): return false
+	_cache=data.duplicate(true);_digest=digest
+	backend.queue_sync(data)
+	return true
+
+func _write_local(data: Dictionary) -> bool:
 	var temporary := save_path + ".tmp"
 	var file := FileAccess.open(temporary, FileAccess.WRITE)
 	if file == null:
@@ -36,7 +57,11 @@ func load_data() -> Dictionary:
 			write_blocked = true
 			push_error("Save is from a newer version; writing disabled to protect it")
 			return {}
-		return _migrate(data)
+		var migrated:=_migrate(data)
+		_cache=migrated.duplicate(true);_digest=Conflict.fingerprint(migrated)
+		backend.restore(migrated.get("cloud_state",{}))
+		backend.queue_sync(migrated)
+		return migrated
 	if FileAccess.file_exists(save_path) or FileAccess.file_exists(save_path + ".bak"):
 		write_blocked = true
 		push_error("Both saves unreadable; writing disabled to preserve recovery files")
@@ -81,4 +106,21 @@ func _migrate(data: Dictionary) -> Dictionary:
 	if int(migrated.schema_version)<8:
 		migrated["premium"]={"gems":0,"fertiliser":2}
 		migrated["schema_version"]=8
+	if int(migrated.schema_version)<9:
+		migrated["cloud_state"]={"auth":{},"choices":{}}
+		migrated["last_modified"]=int(migrated.get("last_modified",0))*1000
+		migrated["schema_version"]=9
 	return migrated
+
+func _accept_cloud(payload: Dictionary) -> void:
+	if write_blocked or not payload.get("plots") is Array or not payload.get("inventory") is Array or not payload.get("progression") is Dictionary: return
+	if int(_cache.get("last_modified",0))>int(payload.get("last_modified",0)): return
+	var data:=_migrate(payload)
+	data["cloud_state"]=backend.state()
+	if not _write_local(data): return
+	_cache=data.duplicate(true);_digest=Conflict.fingerprint(data)
+	cloud_loaded.emit(data)
+func _store_cloud_state() -> void:
+	if not _cache.is_empty() and not write_blocked:
+		_cache["cloud_state"]=backend.state()
+		_write_local(_cache)

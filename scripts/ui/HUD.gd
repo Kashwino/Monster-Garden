@@ -50,6 +50,7 @@ func _ready() -> void:
 	BuyerOrders.changed.connect(_queue_modal_refresh)
 	Events.toast_requested.connect(show_toast)
 	Events.session_resumed.connect(_away_summary)
+	SaveManager.backend.conflict_requested.connect(_cloud_conflict)
 	var timer := Timer.new()
 	timer.wait_time = 0.5
 	timer.timeout.connect(_refresh)
@@ -405,3 +406,17 @@ func _away_summary(summary: Dictionary) -> void:
 	_root.add_child(dialog)
 	dialog.popup_centered(Vector2i(380,170))
 	dialog.confirmed.connect(dialog.queue_free)
+
+func _cloud_conflict(local: Dictionary, remote: Dictionary) -> void:
+	var dialog:=ConfirmationDialog.new()
+	dialog.title="Choose which garden to keep"
+	dialog.dialog_text="Both saves have the same timestamp.\nThis device: level %d, %d coins.\nCloud: level %d, %d coins.\nUsing cloud replaces this device’s garden."%[local.level,local.coins,remote.level,remote.coins]
+	dialog.ok_button_text="Keep this device"
+	dialog.cancel_button_text="Cancel"
+	dialog.add_button("Use cloud garden",true,"cloud")
+	_root.add_child(dialog)
+	dialog.confirmed.connect(func() -> void: Events.cloud_choice.emit("local");dialog.queue_free())
+	dialog.canceled.connect(func() -> void: Events.cloud_choice.emit("local");dialog.queue_free())
+	dialog.custom_action.connect(func(action: StringName) -> void:
+		if action=="cloud": Events.cloud_choice.emit("remote");dialog.queue_free())
+	dialog.popup_centered(Vector2i(420,230))
