@@ -144,6 +144,48 @@ func _build_creature(root: Node3D, shape: String, stage: String, color: Color, g
 			ellipsoid(root, Vector3(0.19, 0.53, 0.26), Vector3(0.16, 0.18, 0.07), pale)
 			ellipsoid(root, Vector3(0.22, 0.54, 0.32), Vector3(0.07, 0.1, 0.035), dark)
 
+		_:
+			_build_extended(root, shape, body, dark, pale, glow, genes)
+
+func _build_extended(root: Node3D, shape: String, body: Material, dark: Material, pale: Material, glow: Material, genes: Dictionary) -> void:
+	match shape:
+		"maw":
+			ellipsoid(root, Vector3(0, .55, 0), Vector3(.5, .55, .5), body)
+			ellipsoid(root, Vector3(.12, .85, .18), Vector3(.4, .13, .4), dark)
+			for i: int in 8:
+				var a := TAU * i / 8.0
+				cone(root, Vector3(cos(a)*.31, .96, sin(a)*.31), .06, .28, pale)
+		"spore":
+			for i: int in int(genes.appendages):
+				var a := TAU * i / float(genes.appendages)
+				ellipsoid(root, Vector3(cos(a)*.3, .5+i*.06, sin(a)*.3), Vector3(.23,.38,.23), body)
+				ellipsoid(root, Vector3(cos(a)*.3,.88+i*.06,sin(a)*.3),Vector3(.08,.06,.08),glow)
+		"parasite":
+			ellipsoid(root, Vector3(0,.55,0),Vector3(.3,.6,.26),pale)
+			for i: int in 7:
+				var a := i * 1.1
+				ellipsoid(root, Vector3(cos(a)*.27,.18+i*.14,sin(a)*.27),Vector3(.2,.16,.19),body)
+			ellipsoid(root,Vector3(.2,1.04,.24),Vector3(.14,.15,.08),dark)
+		"void":
+			ellipsoid(root,Vector3(0,.75,0),Vector3(.25,.3,.25),dark)
+			for i: int in 6:
+				var a := TAU*i/6.0
+				ellipsoid(root,Vector3(cos(a)*.43,.75+sin(a)*.43,0),Vector3(.15,.13,.16),glow)
+		"chitin":
+			for i: int in 4:
+				ellipsoid(root,Vector3(0,.2+i*.23,0),Vector3(.46-i*.07,.2,.39-i*.04),body)
+			for side: int in [-1,1]:
+				var antenna := ellipsoid(root,Vector3(side*.23,1.18,0),Vector3(.04,.3,.04),pale)
+				antenna.rotation.z = -side*.4
+				ellipsoid(root,Vector3(side*.33,1.43,0),Vector3(.09,.09,.09),glow)
+		"coral":
+			for i: int in int(genes.appendages):
+				var a := TAU*i/float(genes.appendages)
+				var stem := ellipsoid(root,Vector3(cos(a)*.25,.45,sin(a)*.25),Vector3(.08,.5,.08),pale)
+				stem.rotation.z = -cos(a)*.5
+				ellipsoid(root,Vector3(cos(a)*.46,.87,sin(a)*.36),Vector3(.18,.17,.18),body)
+				ellipsoid(root,Vector3(cos(a)*.46,1.0,sin(a)*.36),Vector3(.09,.04,.09),dark)
+
 func material(color: Color, emission: float = 0.0) -> StandardMaterial3D:
 	var key := color.to_html() + str(emission)
 	if _materials.has(key):

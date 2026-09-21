@@ -1,21 +1,85 @@
 {
-  "version": 2,
+  "version": 3,
   "families": {
     "ocular": {
       "name": "Ocular",
-      "silhouette": "eye"
+      "silhouette": "eye",
+      "mesh": {
+        "primitive": "eye"
+      },
+      "description": "Pupils stare from rooted flesh"
     },
     "fungal": {
       "name": "Fungal",
-      "silhouette": "fungus"
+      "silhouette": "fungus",
+      "mesh": {
+        "primitive": "fungus"
+      },
+      "description": "A breathing mass of gills and mouths"
     },
     "crystalline": {
       "name": "Crystalline",
-      "silhouette": "crystal"
+      "silhouette": "crystal",
+      "mesh": {
+        "primitive": "crystal"
+      },
+      "description": "Living shards fracture around a hungry core"
     },
     "tendril": {
       "name": "Tendril",
-      "silhouette": "tendril"
+      "silhouette": "tendril",
+      "mesh": {
+        "primitive": "tendril"
+      },
+      "description": "Blind tendrils taste the air"
+    },
+    "carnivore": {
+      "name": "Carnivore",
+      "silhouette": "maw",
+      "mesh": {
+        "primitive": "maw"
+      },
+      "description": "Petal jaws fold around a tooth-lined throat"
+    },
+    "spore": {
+      "name": "Spore",
+      "silhouette": "spore",
+      "mesh": {
+        "primitive": "spore"
+      },
+      "description": "Hollow sacs release luminous dreams"
+    },
+    "parasite": {
+      "name": "Parasite",
+      "silhouette": "parasite",
+      "mesh": {
+        "primitive": "parasite"
+      },
+      "description": "A second organism coils around its host"
+    },
+    "voidling": {
+      "name": "Voidling",
+      "silhouette": "void",
+      "mesh": {
+        "primitive": "void"
+      },
+      "description": "Floating flesh circles an absence"
+    },
+    "chitin": {
+      "name": "Chitin",
+      "silhouette": "chitin",
+      "mesh": {
+        "primitive": "chitin"
+      },
+      "description": "Rooted plates hide twitching feelers"
+    },
+    "coralline": {
+      "name": "Coralline",
+      "silhouette": "coral",
+      "mesh": {
+        "primitive": "coral"
+      },
+      "description": "Branching bone grows tiny blinking mouths"
     }
   },
   "species": [
@@ -63,84 +127,6 @@
       }
     },
     {
-      "id": "murmur_cap",
-      "name": "Murmur Cap",
-      "description": "Beneath its gills, a hundred small mouths whisper.",
-      "family": "fungal",
-      "rarity": "Common",
-      "grow_seconds": 30,
-      "yield": 3,
-      "sell_value": 6,
-      "seed_cost": 7,
-      "xp": 7,
-      "unlock": {
-        "type": "level",
-        "value": 1
-      },
-      "genes": {
-        "hue": 0.82,
-        "scale": 0.95,
-        "appendages": 4,
-        "glow": 0.27,
-        "speed": 1.0
-      },
-      "mesh": {
-        "primitive": "fungus"
-      }
-    },
-    {
-      "id": "nerve_knot",
-      "name": "Nerve Knot",
-      "description": "A tangle of roots that recoils from its own shadow.",
-      "family": "tendril",
-      "rarity": "Common",
-      "grow_seconds": 45,
-      "yield": 2,
-      "sell_value": 14,
-      "seed_cost": 12,
-      "xp": 10,
-      "unlock": {
-        "type": "level",
-        "value": 2
-      },
-      "genes": {
-        "hue": 0.09,
-        "scale": 1.05,
-        "appendages": 5,
-        "glow": 0.42,
-        "speed": 1.2999999999999998
-      },
-      "mesh": {
-        "primitive": "tendril"
-      }
-    },
-    {
-      "id": "glass_hunger",
-      "name": "Glass Hunger",
-      "description": "Every shard is a tooth. Every chime is an appetite.",
-      "family": "crystalline",
-      "rarity": "Common",
-      "grow_seconds": 60,
-      "yield": 2,
-      "sell_value": 19,
-      "seed_cost": 18,
-      "xp": 12,
-      "unlock": {
-        "type": "level",
-        "value": 2
-      },
-      "genes": {
-        "hue": 0.49,
-        "scale": 0.85,
-        "appendages": 6,
-        "glow": 0.57,
-        "speed": 0.7
-      },
-      "mesh": {
-        "primitive": "crystal"
-      }
-    },
-    {
       "id": "sleepless_orb",
       "name": "Sleepless Orb",
       "description": "An unblinking pupil follows moons that are not there.",
@@ -164,84 +150,6 @@
       },
       "mesh": {
         "primitive": "eye"
-      }
-    },
-    {
-      "id": "choir_of_mold",
-      "name": "Choir of Mold",
-      "description": "It sings through spore sacs in a borrowed voice.",
-      "family": "fungal",
-      "rarity": "Uncommon",
-      "grow_seconds": 120,
-      "yield": 3,
-      "sell_value": 31,
-      "seed_cost": 38,
-      "xp": 20,
-      "unlock": {
-        "type": "level",
-        "value": 4
-      },
-      "genes": {
-        "hue": 0.16,
-        "scale": 1.05,
-        "appendages": 4,
-        "glow": 0.27,
-        "speed": 1.2999999999999998
-      },
-      "mesh": {
-        "primitive": "fungus"
-      }
-    },
-    {
-      "id": "vein_lantern",
-      "name": "Vein Lantern",
-      "description": "Light crawls through translucent roots like trapped lightning.",
-      "family": "tendril",
-      "rarity": "Rare",
-      "grow_seconds": 240,
-      "yield": 3,
-      "sell_value": 48,
-      "seed_cost": 60,
-      "xp": 30,
-      "unlock": {
-        "type": "level",
-        "value": 5
-      },
-      "genes": {
-        "hue": 0.43,
-        "scale": 0.85,
-        "appendages": 5,
-        "glow": 0.42,
-        "speed": 0.7
-      },
-      "mesh": {
-        "primitive": "tendril"
-      }
-    },
-    {
-      "id": "prism_wound",
-      "name": "Prism Wound",
-      "description": "A wound in the ground that heals into impossible angles.",
-      "family": "crystalline",
-      "rarity": "Rare",
-      "grow_seconds": 480,
-      "yield": 4,
-      "sell_value": 65,
-      "seed_cost": 95,
-      "xp": 40,
-      "unlock": {
-        "type": "level",
-        "value": 6
-      },
-      "genes": {
-        "hue": 0.9,
-        "scale": 0.95,
-        "appendages": 6,
-        "glow": 0.57,
-        "speed": 1.0
-      },
-      "mesh": {
-        "primitive": "crystal"
       }
     },
     {
@@ -271,6 +179,292 @@
       }
     },
     {
+      "id": "borrowed_gaze",
+      "name": "Borrowed Gaze",
+      "description": "Pupils stare from rooted flesh; it answers in a voice of spores.",
+      "family": "ocular",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 30,
+      "sell_value": 22,
+      "xp": 14,
+      "genes": {
+        "hue": 0.14,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 13
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "pupil_nest",
+      "name": "Pupil Nest",
+      "description": "Pupils stare from rooted flesh; it remembers your footsteps.",
+      "family": "ocular",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 100,
+      "sell_value": 55,
+      "xp": 30,
+      "genes": {
+        "hue": 0.19,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 17
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "iris_furnace",
+      "name": "Iris Furnace",
+      "description": "Pupils stare from rooted flesh; its shadow moves before it does.",
+      "family": "ocular",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 100,
+      "sell_value": 55,
+      "xp": 30,
+      "genes": {
+        "hue": 0.23,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 21
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "scrying_blister",
+      "name": "Scrying Blister",
+      "description": "Pupils stare from rooted flesh; it dreams beneath the soil.",
+      "family": "ocular",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 350,
+      "sell_value": 150,
+      "xp": 65,
+      "genes": {
+        "hue": 0.28,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 25
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "gaze_leech",
+      "name": "Gaze Leech",
+      "description": "Pupils stare from rooted flesh; it answers in a voice of spores.",
+      "family": "ocular",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 350,
+      "sell_value": 150,
+      "xp": 65,
+      "genes": {
+        "hue": 0.33,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 29
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "weeping_lens",
+      "name": "Weeping Lens",
+      "description": "Pupils stare from rooted flesh; it remembers your footsteps.",
+      "family": "ocular",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 950,
+      "sell_value": 410,
+      "xp": 140,
+      "genes": {
+        "hue": 0.38,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 33
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "many_eyed_oracle",
+      "name": "Many-Eyed Oracle",
+      "description": "Pupils stare from rooted flesh; its shadow moves before it does.",
+      "family": "ocular",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 950,
+      "sell_value": 410,
+      "xp": 140,
+      "genes": {
+        "hue": 0.42,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_many_eyed_oracle"
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "vigil_morrow",
+      "name": "Vigil Morrow",
+      "description": "Pupils stare from rooted flesh; it dreams beneath the soil.",
+      "family": "ocular",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 100,
+      "sell_value": 55,
+      "xp": 30,
+      "genes": {
+        "hue": 0.47,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_vigil_morrow"
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "moonlit_retina",
+      "name": "Moonlit Retina",
+      "description": "Pupils stare from rooted flesh; it answers in a voice of spores.",
+      "family": "ocular",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 950,
+      "sell_value": 410,
+      "xp": 140,
+      "genes": {
+        "hue": 0.52,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_moonlit_retina"
+      },
+      "mesh": {
+        "primitive": "eye"
+      }
+    },
+    {
+      "id": "murmur_cap",
+      "name": "Murmur Cap",
+      "description": "Beneath its gills, a hundred small mouths whisper.",
+      "family": "fungal",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 3,
+      "sell_value": 6,
+      "seed_cost": 7,
+      "xp": 7,
+      "unlock": {
+        "type": "level",
+        "value": 1
+      },
+      "genes": {
+        "hue": 0.82,
+        "scale": 0.95,
+        "appendages": 4,
+        "glow": 0.27,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "choir_of_mold",
+      "name": "Choir of Mold",
+      "description": "It sings through spore sacs in a borrowed voice.",
+      "family": "fungal",
+      "rarity": "Uncommon",
+      "grow_seconds": 120,
+      "yield": 3,
+      "sell_value": 31,
+      "seed_cost": 38,
+      "xp": 20,
+      "unlock": {
+        "type": "level",
+        "value": 4
+      },
+      "genes": {
+        "hue": 0.16,
+        "scale": 1.05,
+        "appendages": 4,
+        "glow": 0.27,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
       "id": "cathedral_rot",
       "name": "Cathedral Rot",
       "description": "Its bell-shaped chambers shelter a breathing darkness.",
@@ -294,6 +488,604 @@
       },
       "mesh": {
         "primitive": "fungus"
+      }
+    },
+    {
+      "id": "gilled_tongue",
+      "name": "Gilled Tongue",
+      "description": "A breathing mass of gills and mouths; it answers in a voice of spores.",
+      "family": "fungal",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 31,
+      "sell_value": 23,
+      "xp": 14,
+      "genes": {
+        "hue": 0.24,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 13
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "mouth_morel",
+      "name": "Mouth Morel",
+      "description": "A breathing mass of gills and mouths; it remembers your footsteps.",
+      "family": "fungal",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 101,
+      "sell_value": 56,
+      "xp": 30,
+      "genes": {
+        "hue": 0.29,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 17
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "sobbing_mycelium",
+      "name": "Sobbing Mycelium",
+      "description": "A breathing mass of gills and mouths; its shadow moves before it does.",
+      "family": "fungal",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 101,
+      "sell_value": 56,
+      "xp": 30,
+      "genes": {
+        "hue": 0.33,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 21
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "velvet_fever",
+      "name": "Velvet Fever",
+      "description": "A breathing mass of gills and mouths; it dreams beneath the soil.",
+      "family": "fungal",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 351,
+      "sell_value": 151,
+      "xp": 65,
+      "genes": {
+        "hue": 0.38,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 25
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "throat_cluster",
+      "name": "Throat Cluster",
+      "description": "A breathing mass of gills and mouths; it answers in a voice of spores.",
+      "family": "fungal",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 351,
+      "sell_value": 151,
+      "xp": 65,
+      "genes": {
+        "hue": 0.43,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 29
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "pale_communion",
+      "name": "Pale Communion",
+      "description": "A breathing mass of gills and mouths; it remembers your footsteps.",
+      "family": "fungal",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 951,
+      "sell_value": 411,
+      "xp": 140,
+      "genes": {
+        "hue": 0.47,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 33
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "dreaming_ossuary",
+      "name": "Dreaming Ossuary",
+      "description": "A breathing mass of gills and mouths; its shadow moves before it does.",
+      "family": "fungal",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 951,
+      "sell_value": 411,
+      "xp": 140,
+      "genes": {
+        "hue": 0.52,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_dreaming_ossuary"
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "spore_cantor",
+      "name": "Spore Cantor",
+      "description": "A breathing mass of gills and mouths; it dreams beneath the soil.",
+      "family": "fungal",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 101,
+      "sell_value": 56,
+      "xp": 30,
+      "genes": {
+        "hue": 0.57,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_spore_cantor"
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "equinox_choir",
+      "name": "Equinox Choir",
+      "description": "A breathing mass of gills and mouths; it answers in a voice of spores.",
+      "family": "fungal",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 951,
+      "sell_value": 411,
+      "xp": 140,
+      "genes": {
+        "hue": 0.61,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_equinox_choir"
+      },
+      "mesh": {
+        "primitive": "fungus"
+      }
+    },
+    {
+      "id": "glass_hunger",
+      "name": "Glass Hunger",
+      "description": "Every shard is a tooth. Every chime is an appetite.",
+      "family": "crystalline",
+      "rarity": "Common",
+      "grow_seconds": 60,
+      "yield": 2,
+      "sell_value": 19,
+      "seed_cost": 18,
+      "xp": 12,
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "genes": {
+        "hue": 0.49,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "prism_wound",
+      "name": "Prism Wound",
+      "description": "A wound in the ground that heals into impossible angles.",
+      "family": "crystalline",
+      "rarity": "Rare",
+      "grow_seconds": 480,
+      "yield": 4,
+      "sell_value": 65,
+      "seed_cost": 95,
+      "xp": 40,
+      "unlock": {
+        "type": "level",
+        "value": 6
+      },
+      "genes": {
+        "hue": 0.9,
+        "scale": 0.95,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 1.0
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "echo_obelisk",
+      "name": "Echo Obelisk",
+      "description": "It casts tomorrow\u2019s shadow and hums yesterday\u2019s name.",
+      "family": "crystalline",
+      "rarity": "Mythic",
+      "grow_seconds": 7200,
+      "yield": 6,
+      "sell_value": 270,
+      "seed_cost": 500,
+      "xp": 150,
+      "unlock": {
+        "type": "level",
+        "value": 10
+      },
+      "genes": {
+        "hue": 0.55,
+        "scale": 1.05,
+        "appendages": 6,
+        "glow": 0.57,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "quartz_jaw",
+      "name": "Quartz Jaw",
+      "description": "Living shards fracture around a hungry core; it answers in a voice of spores.",
+      "family": "crystalline",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 32,
+      "sell_value": 24,
+      "xp": 14,
+      "genes": {
+        "hue": 0.34,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 13
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "shiver_geode",
+      "name": "Shiver Geode",
+      "description": "Living shards fracture around a hungry core; it remembers your footsteps.",
+      "family": "crystalline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 102,
+      "sell_value": 57,
+      "xp": 30,
+      "genes": {
+        "hue": 0.38,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 17
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "nerve_prism",
+      "name": "Nerve Prism",
+      "description": "Living shards fracture around a hungry core; its shadow moves before it does.",
+      "family": "crystalline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 102,
+      "sell_value": 57,
+      "xp": 30,
+      "genes": {
+        "hue": 0.43,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 21
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "fracture_heart",
+      "name": "Fracture Heart",
+      "description": "Living shards fracture around a hungry core; it dreams beneath the soil.",
+      "family": "crystalline",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 352,
+      "sell_value": 152,
+      "xp": 65,
+      "genes": {
+        "hue": 0.48,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 25
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "singing_splinter",
+      "name": "Singing Splinter",
+      "description": "Living shards fracture around a hungry core; it answers in a voice of spores.",
+      "family": "crystalline",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 352,
+      "sell_value": 152,
+      "xp": 65,
+      "genes": {
+        "hue": 0.52,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 29
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "glass_malice",
+      "name": "Glass Malice",
+      "description": "Living shards fracture around a hungry core; it remembers your footsteps.",
+      "family": "crystalline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 952,
+      "sell_value": 412,
+      "xp": 140,
+      "genes": {
+        "hue": 0.57,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 33
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "catoptric_hunger",
+      "name": "Catoptric Hunger",
+      "description": "Living shards fracture around a hungry core; its shadow moves before it does.",
+      "family": "crystalline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 952,
+      "sell_value": 412,
+      "xp": 140,
+      "genes": {
+        "hue": 0.62,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_catoptric_hunger"
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "mirror_fever",
+      "name": "Mirror Fever",
+      "description": "Living shards fracture around a hungry core; it dreams beneath the soil.",
+      "family": "crystalline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 102,
+      "sell_value": 57,
+      "xp": 30,
+      "genes": {
+        "hue": 0.66,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_mirror_fever"
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "solstice_fang",
+      "name": "Solstice Fang",
+      "description": "Living shards fracture around a hungry core; it answers in a voice of spores.",
+      "family": "crystalline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 952,
+      "sell_value": 412,
+      "xp": 140,
+      "genes": {
+        "hue": 0.71,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_solstice_fang"
+      },
+      "mesh": {
+        "primitive": "crystal"
+      }
+    },
+    {
+      "id": "nerve_knot",
+      "name": "Nerve Knot",
+      "description": "A tangle of roots that recoils from its own shadow.",
+      "family": "tendril",
+      "rarity": "Common",
+      "grow_seconds": 45,
+      "yield": 2,
+      "sell_value": 14,
+      "seed_cost": 12,
+      "xp": 10,
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "genes": {
+        "hue": 0.09,
+        "scale": 1.05,
+        "appendages": 5,
+        "glow": 0.42,
+        "speed": 1.2999999999999998
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "vein_lantern",
+      "name": "Vein Lantern",
+      "description": "Light crawls through translucent roots like trapped lightning.",
+      "family": "tendril",
+      "rarity": "Rare",
+      "grow_seconds": 240,
+      "yield": 3,
+      "sell_value": 48,
+      "seed_cost": 60,
+      "xp": 30,
+      "unlock": {
+        "type": "level",
+        "value": 5
+      },
+      "genes": {
+        "hue": 0.43,
+        "scale": 0.85,
+        "appendages": 5,
+        "glow": 0.42,
+        "speed": 0.7
+      },
+      "mesh": {
+        "primitive": "tendril"
       }
     },
     {
@@ -323,30 +1115,2272 @@
       }
     },
     {
-      "id": "echo_obelisk",
-      "name": "Echo Obelisk",
-      "description": "It casts tomorrow\u2019s shadow and hums yesterday\u2019s name.",
-      "family": "crystalline",
+      "id": "tongue_tangle",
+      "name": "Tongue Tangle",
+      "description": "Blind tendrils taste the air; it answers in a voice of spores.",
+      "family": "tendril",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 33,
+      "sell_value": 25,
+      "xp": 14,
+      "genes": {
+        "hue": 0.43,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 14
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "blind_grasp",
+      "name": "Blind Grasp",
+      "description": "Blind tendrils taste the air; it remembers your footsteps.",
+      "family": "tendril",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 103,
+      "sell_value": 58,
+      "xp": 30,
+      "genes": {
+        "hue": 0.48,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 18
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "coiled_sigh",
+      "name": "Coiled Sigh",
+      "description": "Blind tendrils taste the air; its shadow moves before it does.",
+      "family": "tendril",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 103,
+      "sell_value": 58,
+      "xp": 30,
+      "genes": {
+        "hue": 0.53,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 22
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "threaded_maw",
+      "name": "Threaded Maw",
+      "description": "Blind tendrils taste the air; it dreams beneath the soil.",
+      "family": "tendril",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 353,
+      "sell_value": 153,
+      "xp": 65,
+      "genes": {
+        "hue": 0.57,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 26
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "ligament_bloom",
+      "name": "Ligament Bloom",
+      "description": "Blind tendrils taste the air; it answers in a voice of spores.",
+      "family": "tendril",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 353,
+      "sell_value": 153,
+      "xp": 65,
+      "genes": {
+        "hue": 0.62,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 30
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "knuckle_vine",
+      "name": "Knuckle Vine",
+      "description": "Blind tendrils taste the air; it remembers your footsteps.",
+      "family": "tendril",
       "rarity": "Mythic",
-      "grow_seconds": 7200,
+      "grow_seconds": 10800,
       "yield": 6,
-      "sell_value": 270,
-      "seed_cost": 500,
-      "xp": 150,
+      "seed_cost": 953,
+      "sell_value": 413,
+      "xp": 140,
+      "genes": {
+        "hue": 0.67,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 34
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "astral_umbilicus",
+      "name": "Astral Umbilicus",
+      "description": "Blind tendrils taste the air; its shadow moves before it does.",
+      "family": "tendril",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 953,
+      "sell_value": 413,
+      "xp": 140,
+      "genes": {
+        "hue": 0.71,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_astral_umbilicus"
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "root_whispers",
+      "name": "Root Whispers",
+      "description": "Blind tendrils taste the air; it dreams beneath the soil.",
+      "family": "tendril",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 103,
+      "sell_value": 58,
+      "xp": 30,
+      "genes": {
+        "hue": 0.76,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_root_whispers"
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "autumn_artery",
+      "name": "Autumn Artery",
+      "description": "Blind tendrils taste the air; it answers in a voice of spores.",
+      "family": "tendril",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 953,
+      "sell_value": 413,
+      "xp": 140,
+      "genes": {
+        "hue": 0.81,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_autumn_artery"
+      },
+      "mesh": {
+        "primitive": "tendril"
+      }
+    },
+    {
+      "id": "throat_bud",
+      "name": "Throat Bud",
+      "description": "Petal jaws fold around a tooth-lined throat; it remembers your footsteps.",
+      "family": "carnivore",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 12,
+      "sell_value": 13,
+      "xp": 7,
+      "genes": {
+        "hue": 0.39,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "velvet_jaws",
+      "name": "Velvet Jaws",
+      "description": "Petal jaws fold around a tooth-lined throat; its shadow moves before it does.",
+      "family": "carnivore",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 12,
+      "sell_value": 13,
+      "xp": 7,
+      "genes": {
+        "hue": 0.43,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 6
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "crying_tooth",
+      "name": "Crying Tooth",
+      "description": "Petal jaws fold around a tooth-lined throat; it dreams beneath the soil.",
+      "family": "carnivore",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 34,
+      "sell_value": 26,
+      "xp": 14,
+      "genes": {
+        "hue": 0.48,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
       "unlock": {
         "type": "level",
         "value": 10
       },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "molar_choir",
+      "name": "Molar Choir",
+      "description": "Petal jaws fold around a tooth-lined throat; it answers in a voice of spores.",
+      "family": "carnivore",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 34,
+      "sell_value": 26,
+      "xp": 14,
       "genes": {
-        "hue": 0.55,
-        "scale": 1.05,
+        "hue": 0.53,
+        "scale": 1.21,
         "appendages": 6,
-        "glow": 0.57,
-        "speed": 1.2999999999999998
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 14
       },
       "mesh": {
-        "primitive": "crystal"
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "drooling_chalice",
+      "name": "Drooling Chalice",
+      "description": "Petal jaws fold around a tooth-lined throat; it remembers your footsteps.",
+      "family": "carnivore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 104,
+      "sell_value": 59,
+      "xp": 30,
+      "genes": {
+        "hue": 0.58,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 18
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "biting_halo",
+      "name": "Biting Halo",
+      "description": "Petal jaws fold around a tooth-lined throat; its shadow moves before it does.",
+      "family": "carnivore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 104,
+      "sell_value": 59,
+      "xp": 30,
+      "genes": {
+        "hue": 0.62,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 22
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "gullet_crown",
+      "name": "Gullet Crown",
+      "description": "Petal jaws fold around a tooth-lined throat; it dreams beneath the soil.",
+      "family": "carnivore",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 354,
+      "sell_value": 154,
+      "xp": 65,
+      "genes": {
+        "hue": 0.67,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 26
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "serrated_sigh",
+      "name": "Serrated Sigh",
+      "description": "Petal jaws fold around a tooth-lined throat; it answers in a voice of spores.",
+      "family": "carnivore",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 354,
+      "sell_value": 154,
+      "xp": 65,
+      "genes": {
+        "hue": 0.72,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 30
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "hunger_cathedral",
+      "name": "Hunger Cathedral",
+      "description": "Petal jaws fold around a tooth-lined throat; it remembers your footsteps.",
+      "family": "carnivore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 954,
+      "sell_value": 414,
+      "xp": 140,
+      "genes": {
+        "hue": 0.76,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 34
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "endless_appetite",
+      "name": "Endless Appetite",
+      "description": "Petal jaws fold around a tooth-lined throat; its shadow moves before it does.",
+      "family": "carnivore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 954,
+      "sell_value": 414,
+      "xp": 140,
+      "genes": {
+        "hue": 0.81,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_endless_appetite"
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "maw_ambassador",
+      "name": "Maw Ambassador",
+      "description": "Petal jaws fold around a tooth-lined throat; it dreams beneath the soil.",
+      "family": "carnivore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 104,
+      "sell_value": 59,
+      "xp": 30,
+      "genes": {
+        "hue": 0.86,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_maw_ambassador"
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "bloodmoon_throat",
+      "name": "Bloodmoon Throat",
+      "description": "Petal jaws fold around a tooth-lined throat; it answers in a voice of spores.",
+      "family": "carnivore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 954,
+      "sell_value": 414,
+      "xp": 140,
+      "genes": {
+        "hue": 0.91,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_bloodmoon_throat"
+      },
+      "mesh": {
+        "primitive": "maw"
+      }
+    },
+    {
+      "id": "sneeze_sac",
+      "name": "Sneeze Sac",
+      "description": "Hollow sacs release luminous dreams; it remembers your footsteps.",
+      "family": "spore",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 13,
+      "sell_value": 14,
+      "xp": 7,
+      "genes": {
+        "hue": 0.48,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 2
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "hush_bladder",
+      "name": "Hush Bladder",
+      "description": "Hollow sacs release luminous dreams; its shadow moves before it does.",
+      "family": "spore",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 13,
+      "sell_value": 14,
+      "xp": 7,
+      "genes": {
+        "hue": 0.53,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 6
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "dream_pouch",
+      "name": "Dream Pouch",
+      "description": "Hollow sacs release luminous dreams; it dreams beneath the soil.",
+      "family": "spore",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 35,
+      "sell_value": 27,
+      "xp": 14,
+      "genes": {
+        "hue": 0.58,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 10
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "fever_balloon",
+      "name": "Fever Balloon",
+      "description": "Hollow sacs release luminous dreams; it answers in a voice of spores.",
+      "family": "spore",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 35,
+      "sell_value": 27,
+      "xp": 14,
+      "genes": {
+        "hue": 0.63,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 14
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "thousand_exhales",
+      "name": "Thousand Exhales",
+      "description": "Hollow sacs release luminous dreams; it remembers your footsteps.",
+      "family": "spore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 105,
+      "sell_value": 60,
+      "xp": 30,
+      "genes": {
+        "hue": 0.67,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 18
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "lung_orchard",
+      "name": "Lung Orchard",
+      "description": "Hollow sacs release luminous dreams; its shadow moves before it does.",
+      "family": "spore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 105,
+      "sell_value": 60,
+      "xp": 30,
+      "genes": {
+        "hue": 0.72,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 22
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "breath_censer",
+      "name": "Breath Censer",
+      "description": "Hollow sacs release luminous dreams; it dreams beneath the soil.",
+      "family": "spore",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 355,
+      "sell_value": 155,
+      "xp": 65,
+      "genes": {
+        "hue": 0.77,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 26
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "pollen_phantom",
+      "name": "Pollen Phantom",
+      "description": "Hollow sacs release luminous dreams; it answers in a voice of spores.",
+      "family": "spore",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 355,
+      "sell_value": 155,
+      "xp": 65,
+      "genes": {
+        "hue": 0.81,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 30
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "contagion_choir",
+      "name": "Contagion Choir",
+      "description": "Hollow sacs release luminous dreams; it remembers your footsteps.",
+      "family": "spore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 955,
+      "sell_value": 415,
+      "xp": 140,
+      "genes": {
+        "hue": 0.86,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 34
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "spore_singularity",
+      "name": "Spore Singularity",
+      "description": "Hollow sacs release luminous dreams; its shadow moves before it does.",
+      "family": "spore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 955,
+      "sell_value": 415,
+      "xp": 140,
+      "genes": {
+        "hue": 0.91,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_spore_singularity"
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "drifting_lullaby",
+      "name": "Drifting Lullaby",
+      "description": "Hollow sacs release luminous dreams; it dreams beneath the soil.",
+      "family": "spore",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 105,
+      "sell_value": 60,
+      "xp": 30,
+      "genes": {
+        "hue": 0.95,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_drifting_lullaby"
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "equinox_lung",
+      "name": "Equinox Lung",
+      "description": "Hollow sacs release luminous dreams; it answers in a voice of spores.",
+      "family": "spore",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 955,
+      "sell_value": 415,
+      "xp": 140,
+      "genes": {
+        "hue": 0.0,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_equinox_lung"
+      },
+      "mesh": {
+        "primitive": "spore"
+      }
+    },
+    {
+      "id": "borrowed_root",
+      "name": "Borrowed Root",
+      "description": "A second organism coils around its host; it remembers your footsteps.",
+      "family": "parasite",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 14,
+      "sell_value": 15,
+      "xp": 7,
+      "genes": {
+        "hue": 0.58,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 3
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "host_whisper",
+      "name": "Host Whisper",
+      "description": "A second organism coils around its host; its shadow moves before it does.",
+      "family": "parasite",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 14,
+      "sell_value": 15,
+      "xp": 7,
+      "genes": {
+        "hue": 0.63,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 7
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "pale_hitchhiker",
+      "name": "Pale Hitchhiker",
+      "description": "A second organism coils around its host; it dreams beneath the soil.",
+      "family": "parasite",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 36,
+      "sell_value": 28,
+      "xp": 14,
+      "genes": {
+        "hue": 0.68,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 11
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "twin_hunger",
+      "name": "Twin Hunger",
+      "description": "A second organism coils around its host; it answers in a voice of spores.",
+      "family": "parasite",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 36,
+      "sell_value": 28,
+      "xp": 14,
+      "genes": {
+        "hue": 0.72,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 15
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "nerve_lodger",
+      "name": "Nerve Lodger",
+      "description": "A second organism coils around its host; it remembers your footsteps.",
+      "family": "parasite",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 106,
+      "sell_value": 61,
+      "xp": 30,
+      "genes": {
+        "hue": 0.77,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 19
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "womb_thief",
+      "name": "Womb Thief",
+      "description": "A second organism coils around its host; its shadow moves before it does.",
+      "family": "parasite",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 106,
+      "sell_value": 61,
+      "xp": 30,
+      "genes": {
+        "hue": 0.82,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 23
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "vein_impostor",
+      "name": "Vein Impostor",
+      "description": "A second organism coils around its host; it dreams beneath the soil.",
+      "family": "parasite",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 356,
+      "sell_value": 156,
+      "xp": 65,
+      "genes": {
+        "hue": 0.86,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 27
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "marrow_guest",
+      "name": "Marrow Guest",
+      "description": "A second organism coils around its host; it answers in a voice of spores.",
+      "family": "parasite",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 356,
+      "sell_value": 156,
+      "xp": 65,
+      "genes": {
+        "hue": 0.91,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 31
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "skin_pilgrim",
+      "name": "Skin Pilgrim",
+      "description": "A second organism coils around its host; it remembers your footsteps.",
+      "family": "parasite",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 956,
+      "sell_value": 416,
+      "xp": 140,
+      "genes": {
+        "hue": 0.96,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 35
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "perfect_intruder",
+      "name": "Perfect Intruder",
+      "description": "A second organism coils around its host; its shadow moves before it does.",
+      "family": "parasite",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 956,
+      "sell_value": 416,
+      "xp": 140,
+      "genes": {
+        "hue": 0.01,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_perfect_intruder"
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "drifting_stranger",
+      "name": "Drifting Stranger",
+      "description": "A second organism coils around its host; it dreams beneath the soil.",
+      "family": "parasite",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 106,
+      "sell_value": 61,
+      "xp": 30,
+      "genes": {
+        "hue": 0.05,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_drifting_stranger"
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "bloodmoon_host",
+      "name": "Bloodmoon Host",
+      "description": "A second organism coils around its host; it answers in a voice of spores.",
+      "family": "parasite",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 956,
+      "sell_value": 416,
+      "xp": 140,
+      "genes": {
+        "hue": 0.1,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_bloodmoon_host"
+      },
+      "mesh": {
+        "primitive": "parasite"
+      }
+    },
+    {
+      "id": "hollow_mote",
+      "name": "Hollow Mote",
+      "description": "Floating flesh circles an absence; it remembers your footsteps.",
+      "family": "voidling",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 15,
+      "sell_value": 16,
+      "xp": 7,
+      "genes": {
+        "hue": 0.68,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 3
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "absent_tongue",
+      "name": "Absent Tongue",
+      "description": "Floating flesh circles an absence; its shadow moves before it does.",
+      "family": "voidling",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 15,
+      "sell_value": 16,
+      "xp": 7,
+      "genes": {
+        "hue": 0.73,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 7
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "gap_larva",
+      "name": "Gap Larva",
+      "description": "Floating flesh circles an absence; it dreams beneath the soil.",
+      "family": "voidling",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 37,
+      "sell_value": 29,
+      "xp": 14,
+      "genes": {
+        "hue": 0.77,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 11
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "unseen_grin",
+      "name": "Unseen Grin",
+      "description": "Floating flesh circles an absence; it answers in a voice of spores.",
+      "family": "voidling",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 37,
+      "sell_value": 29,
+      "xp": 14,
+      "genes": {
+        "hue": 0.82,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 15
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "nothing_nest",
+      "name": "Nothing Nest",
+      "description": "Floating flesh circles an absence; it remembers your footsteps.",
+      "family": "voidling",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 107,
+      "sell_value": 62,
+      "xp": 30,
+      "genes": {
+        "hue": 0.87,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 19
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "rift_sucker",
+      "name": "Rift Sucker",
+      "description": "Floating flesh circles an absence; its shadow moves before it does.",
+      "family": "voidling",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 107,
+      "sell_value": 62,
+      "xp": 30,
+      "genes": {
+        "hue": 0.91,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 23
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "dark_interval",
+      "name": "Dark Interval",
+      "description": "Floating flesh circles an absence; it dreams beneath the soil.",
+      "family": "voidling",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 357,
+      "sell_value": 157,
+      "xp": 65,
+      "genes": {
+        "hue": 0.96,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 27
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "void_halo",
+      "name": "Void Halo",
+      "description": "Floating flesh circles an absence; it answers in a voice of spores.",
+      "family": "voidling",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 357,
+      "sell_value": 157,
+      "xp": 65,
+      "genes": {
+        "hue": 0.01,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 31
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "unbirth_star",
+      "name": "Unbirth Star",
+      "description": "Floating flesh circles an absence; it remembers your footsteps.",
+      "family": "voidling",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 957,
+      "sell_value": 417,
+      "xp": 140,
+      "genes": {
+        "hue": 0.06,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 35
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "impossible_silence",
+      "name": "Impossible Silence",
+      "description": "Floating flesh circles an absence; its shadow moves before it does.",
+      "family": "voidling",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 957,
+      "sell_value": 417,
+      "xp": 140,
+      "genes": {
+        "hue": 0.1,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_impossible_silence"
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "drifting_absence",
+      "name": "Drifting Absence",
+      "description": "Floating flesh circles an absence; it dreams beneath the soil.",
+      "family": "voidling",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 107,
+      "sell_value": 62,
+      "xp": 30,
+      "genes": {
+        "hue": 0.15,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_drifting_absence"
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "equinox_null",
+      "name": "Equinox Null",
+      "description": "Floating flesh circles an absence; it answers in a voice of spores.",
+      "family": "voidling",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 957,
+      "sell_value": 417,
+      "xp": 140,
+      "genes": {
+        "hue": 0.2,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_equinox_null"
+      },
+      "mesh": {
+        "primitive": "void"
+      }
+    },
+    {
+      "id": "shell_murmur",
+      "name": "Shell Murmur",
+      "description": "Rooted plates hide twitching feelers; it remembers your footsteps.",
+      "family": "chitin",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 16,
+      "sell_value": 17,
+      "xp": 7,
+      "genes": {
+        "hue": 0.78,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 3
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "clicking_bud",
+      "name": "Clicking Bud",
+      "description": "Rooted plates hide twitching feelers; its shadow moves before it does.",
+      "family": "chitin",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 16,
+      "sell_value": 17,
+      "xp": 7,
+      "genes": {
+        "hue": 0.82,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 7
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "mandible_knot",
+      "name": "Mandible Knot",
+      "description": "Rooted plates hide twitching feelers; it dreams beneath the soil.",
+      "family": "chitin",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 38,
+      "sell_value": 30,
+      "xp": 14,
+      "genes": {
+        "hue": 0.87,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 11
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "antenna_choir",
+      "name": "Antenna Choir",
+      "description": "Rooted plates hide twitching feelers; it answers in a voice of spores.",
+      "family": "chitin",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 38,
+      "sell_value": 30,
+      "xp": 14,
+      "genes": {
+        "hue": 0.92,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 15
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "carapace_lung",
+      "name": "Carapace Lung",
+      "description": "Rooted plates hide twitching feelers; it remembers your footsteps.",
+      "family": "chitin",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 108,
+      "sell_value": 63,
+      "xp": 30,
+      "genes": {
+        "hue": 0.96,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 19
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "plate_oracle",
+      "name": "Plate Oracle",
+      "description": "Rooted plates hide twitching feelers; its shadow moves before it does.",
+      "family": "chitin",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 108,
+      "sell_value": 63,
+      "xp": 30,
+      "genes": {
+        "hue": 0.01,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 23
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "clicking_halo",
+      "name": "Clicking Halo",
+      "description": "Rooted plates hide twitching feelers; it dreams beneath the soil.",
+      "family": "chitin",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 358,
+      "sell_value": 158,
+      "xp": 65,
+      "genes": {
+        "hue": 0.06,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 27
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "molting_saint",
+      "name": "Molting Saint",
+      "description": "Rooted plates hide twitching feelers; it answers in a voice of spores.",
+      "family": "chitin",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 358,
+      "sell_value": 158,
+      "xp": 65,
+      "genes": {
+        "hue": 0.1,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 31
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "amber_parasite",
+      "name": "Amber Parasite",
+      "description": "Rooted plates hide twitching feelers; it remembers your footsteps.",
+      "family": "chitin",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 958,
+      "sell_value": 418,
+      "xp": 140,
+      "genes": {
+        "hue": 0.15,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 35
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "endless_molt",
+      "name": "Endless Molt",
+      "description": "Rooted plates hide twitching feelers; its shadow moves before it does.",
+      "family": "chitin",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 958,
+      "sell_value": 418,
+      "xp": 140,
+      "genes": {
+        "hue": 0.2,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_endless_molt"
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "shell_envoy",
+      "name": "Shell Envoy",
+      "description": "Rooted plates hide twitching feelers; it dreams beneath the soil.",
+      "family": "chitin",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 108,
+      "sell_value": 63,
+      "xp": 30,
+      "genes": {
+        "hue": 0.25,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_shell_envoy"
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "bloodmoon_carapace",
+      "name": "Bloodmoon Carapace",
+      "description": "Rooted plates hide twitching feelers; it answers in a voice of spores.",
+      "family": "chitin",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 958,
+      "sell_value": 418,
+      "xp": 140,
+      "genes": {
+        "hue": 0.29,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_bloodmoon_carapace"
+      },
+      "mesh": {
+        "primitive": "chitin"
+      }
+    },
+    {
+      "id": "bone_polyp",
+      "name": "Bone Polyp",
+      "description": "Branching bone grows tiny blinking mouths; it remembers your footsteps.",
+      "family": "coralline",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 17,
+      "sell_value": 18,
+      "xp": 7,
+      "genes": {
+        "hue": 0.87,
+        "scale": 0.85,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 4
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "chalk_mouth",
+      "name": "Chalk Mouth",
+      "description": "Branching bone grows tiny blinking mouths; its shadow moves before it does.",
+      "family": "coralline",
+      "rarity": "Common",
+      "grow_seconds": 30,
+      "yield": 2,
+      "seed_cost": 17,
+      "sell_value": 18,
+      "xp": 7,
+      "genes": {
+        "hue": 0.92,
+        "scale": 0.97,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 8
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "fang_branch",
+      "name": "Fang Branch",
+      "description": "Branching bone grows tiny blinking mouths; it dreams beneath the soil.",
+      "family": "coralline",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 39,
+      "sell_value": 31,
+      "xp": 14,
+      "genes": {
+        "hue": 0.97,
+        "scale": 1.09,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 12
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "marrow_fan",
+      "name": "Marrow Fan",
+      "description": "Branching bone grows tiny blinking mouths; it answers in a voice of spores.",
+      "family": "coralline",
+      "rarity": "Uncommon",
+      "grow_seconds": 180,
+      "yield": 3,
+      "seed_cost": 39,
+      "sell_value": 31,
+      "xp": 14,
+      "genes": {
+        "hue": 0.01,
+        "scale": 1.21,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 16
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "ivory_swarm",
+      "name": "Ivory Swarm",
+      "description": "Branching bone grows tiny blinking mouths; it remembers your footsteps.",
+      "family": "coralline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 109,
+      "sell_value": 64,
+      "xp": 30,
+      "genes": {
+        "hue": 0.06,
+        "scale": 0.85,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 20
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "bleached_choir",
+      "name": "Bleached Choir",
+      "description": "Branching bone grows tiny blinking mouths; its shadow moves before it does.",
+      "family": "coralline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 109,
+      "sell_value": 64,
+      "xp": 30,
+      "genes": {
+        "hue": 0.11,
+        "scale": 0.97,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "level",
+        "value": 24
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "tooth_reef",
+      "name": "Tooth Reef",
+      "description": "Branching bone grows tiny blinking mouths; it dreams beneath the soil.",
+      "family": "coralline",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 359,
+      "sell_value": 159,
+      "xp": 65,
+      "genes": {
+        "hue": 0.16,
+        "scale": 1.09,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "level",
+        "value": 28
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "spinal_crown",
+      "name": "Spinal Crown",
+      "description": "Branching bone grows tiny blinking mouths; it answers in a voice of spores.",
+      "family": "coralline",
+      "rarity": "Exotic",
+      "grow_seconds": 3600,
+      "yield": 5,
+      "seed_cost": 359,
+      "sell_value": 159,
+      "xp": 65,
+      "genes": {
+        "hue": 0.2,
+        "scale": 1.21,
+        "appendages": 5,
+        "glow": 0.46,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "level",
+        "value": 32
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "ossuary_bloom",
+      "name": "Ossuary Bloom",
+      "description": "Branching bone grows tiny blinking mouths; it remembers your footsteps.",
+      "family": "coralline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 959,
+      "sell_value": 419,
+      "xp": 140,
+      "genes": {
+        "hue": 0.25,
+        "scale": 0.85,
+        "appendages": 6,
+        "glow": 0.64,
+        "speed": 0.6
+      },
+      "unlock": {
+        "type": "level",
+        "value": 36
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "skeletal_oracle",
+      "name": "Skeletal Oracle",
+      "description": "Branching bone grows tiny blinking mouths; its shadow moves before it does.",
+      "family": "coralline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 959,
+      "sell_value": 419,
+      "xp": 140,
+      "genes": {
+        "hue": 0.3,
+        "scale": 0.97,
+        "appendages": 7,
+        "glow": 0.82,
+        "speed": 0.9
+      },
+      "unlock": {
+        "type": "event",
+        "value": "discover_skeletal_oracle"
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "drifting_tooth",
+      "name": "Drifting Tooth",
+      "description": "Branching bone grows tiny blinking mouths; it dreams beneath the soil.",
+      "family": "coralline",
+      "rarity": "Rare",
+      "grow_seconds": 900,
+      "yield": 4,
+      "seed_cost": 109,
+      "sell_value": 64,
+      "xp": 30,
+      "genes": {
+        "hue": 0.34,
+        "scale": 1.09,
+        "appendages": 3,
+        "glow": 0.1,
+        "speed": 1.2
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_drifting_tooth"
+      },
+      "mesh": {
+        "primitive": "coral"
+      }
+    },
+    {
+      "id": "equinox_marrow",
+      "name": "Equinox Marrow",
+      "description": "Branching bone grows tiny blinking mouths; it answers in a voice of spores.",
+      "family": "coralline",
+      "rarity": "Mythic",
+      "grow_seconds": 10800,
+      "yield": 6,
+      "seed_cost": 959,
+      "sell_value": 419,
+      "xp": 140,
+      "genes": {
+        "hue": 0.39,
+        "scale": 1.21,
+        "appendages": 4,
+        "glow": 0.28,
+        "speed": 1.5
+      },
+      "unlock": {
+        "type": "event",
+        "value": "event_equinox_marrow"
+      },
+      "mesh": {
+        "primitive": "coral"
       }
     }
-  ]
+  ],
+  "events": {
+    "discover_many_eyed_oracle": {
+      "kind": "breeding",
+      "label": "Breed a luminous ocular lineage"
+    },
+    "event_vigil_morrow": {
+      "kind": "reputation",
+      "label": "Courier reputation 30",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_moonlit_retina": {
+      "kind": "season",
+      "label": "Bloodmoon 2026",
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "discover_dreaming_ossuary": {
+      "kind": "breeding",
+      "label": "Breed a luminous fungal lineage"
+    },
+    "event_spore_cantor": {
+      "kind": "quest",
+      "label": "Complete the keeper quest chain",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_equinox_choir": {
+      "kind": "season",
+      "label": "Equinox 2026",
+      "start": "2026-09-01",
+      "end": "2026-10-01"
+    },
+    "discover_catoptric_hunger": {
+      "kind": "breeding",
+      "label": "Breed a luminous crystalline lineage"
+    },
+    "event_mirror_fever": {
+      "kind": "quest",
+      "label": "Complete the keeper quest chain",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_solstice_fang": {
+      "kind": "season",
+      "label": "Bloodmoon 2026",
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "discover_astral_umbilicus": {
+      "kind": "breeding",
+      "label": "Breed a luminous tendril lineage"
+    },
+    "event_root_whispers": {
+      "kind": "quest",
+      "label": "Complete the keeper quest chain",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_autumn_artery": {
+      "kind": "season",
+      "label": "Equinox 2026",
+      "start": "2026-09-01",
+      "end": "2026-10-01"
+    },
+    "discover_endless_appetite": {
+      "kind": "breeding",
+      "label": "Breed a luminous carnivore lineage"
+    },
+    "event_maw_ambassador": {
+      "kind": "reputation",
+      "label": "Courier reputation 30",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_bloodmoon_throat": {
+      "kind": "season",
+      "label": "Bloodmoon 2026",
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "discover_spore_singularity": {
+      "kind": "breeding",
+      "label": "Breed a luminous spore lineage"
+    },
+    "event_drifting_lullaby": {
+      "kind": "drift",
+      "label": "Claim a rare spore drift",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_equinox_lung": {
+      "kind": "season",
+      "label": "Equinox 2026",
+      "start": "2026-09-01",
+      "end": "2026-10-01"
+    },
+    "discover_perfect_intruder": {
+      "kind": "breeding",
+      "label": "Breed a luminous parasite lineage"
+    },
+    "event_drifting_stranger": {
+      "kind": "drift",
+      "label": "Claim a rare spore drift",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_bloodmoon_host": {
+      "kind": "season",
+      "label": "Bloodmoon 2026",
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "discover_impossible_silence": {
+      "kind": "breeding",
+      "label": "Breed a luminous voidling lineage"
+    },
+    "event_drifting_absence": {
+      "kind": "drift",
+      "label": "Claim a rare spore drift",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_equinox_null": {
+      "kind": "season",
+      "label": "Equinox 2026",
+      "start": "2026-09-01",
+      "end": "2026-10-01"
+    },
+    "discover_endless_molt": {
+      "kind": "breeding",
+      "label": "Breed a luminous chitin lineage"
+    },
+    "event_shell_envoy": {
+      "kind": "reputation",
+      "label": "Courier reputation 30",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_bloodmoon_carapace": {
+      "kind": "season",
+      "label": "Bloodmoon 2026",
+      "start": "2026-10-01",
+      "end": "2026-11-01"
+    },
+    "discover_skeletal_oracle": {
+      "kind": "breeding",
+      "label": "Breed a luminous coralline lineage"
+    },
+    "event_drifting_tooth": {
+      "kind": "drift",
+      "label": "Claim a rare spore drift",
+      "threshold": 30,
+      "quest_id": "keeper_master"
+    },
+    "event_equinox_marrow": {
+      "kind": "season",
+      "label": "Equinox 2026",
+      "start": "2026-09-01",
+      "end": "2026-10-01"
+    }
+  }
 }

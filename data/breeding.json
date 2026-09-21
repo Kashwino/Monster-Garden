@@ -1,0 +1,82 @@
+[
+  {
+    "species_id": "many_eyed_oracle",
+    "event": "discover_many_eyed_oracle",
+    "family": "ocular",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "dreaming_ossuary",
+    "event": "discover_dreaming_ossuary",
+    "family": "fungal",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "catoptric_hunger",
+    "event": "discover_catoptric_hunger",
+    "family": "crystalline",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "astral_umbilicus",
+    "event": "discover_astral_umbilicus",
+    "family": "tendril",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "endless_appetite",
+    "event": "discover_endless_appetite",
+    "family": "carnivore",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "spore_singularity",
+    "event": "discover_spore_singularity",
+    "family": "spore",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "perfect_intruder",
+    "event": "discover_perfect_intruder",
+    "family": "parasite",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "impossible_silence",
+    "event": "discover_impossible_silence",
+    "family": "voidling",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "endless_molt",
+    "event": "discover_endless_molt",
+    "family": "chitin",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  },
+  {
+    "species_id": "skeletal_oracle",
+    "event": "discover_skeletal_oracle",
+    "family": "coralline",
+    "glow_min": 0.4,
+    "scale_min": 0.85,
+    "chance": 0.18
+  }
+]

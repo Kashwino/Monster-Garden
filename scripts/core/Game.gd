@@ -3,6 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := 16
+const SAVE_MODULES := {"unlocks":"UnlockManager"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
@@ -32,6 +33,8 @@ func start_session() -> void:
 		discovered.assign(["witness_bud", "murmur_cap"])
 	else:
 		_restore(payload)
+	for key: String in SAVE_MODULES:
+		get_node("/root/" + SAVE_MODULES[key]).restore(payload.get(key, {}))
 	BuyerOrders.restore(payload.get("orders", {}))
 	_loaded = true
 	LevelXP.leveled_up.connect(_on_level_up)
@@ -119,9 +122,12 @@ func _on_level_up(level: int) -> void:
 	Events.toast_requested.emit("LEVEL %d · +25 coins · new seeds await" % level)
 
 func snapshot() -> Dictionary:
-	return {"catalog_version": 2, "plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "coins": Economy.coins,
+	var result := {"catalog_version": 3, "plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "coins": Economy.coins,
 		"progression": LevelXP.snapshot(), "discovered": discovered.duplicate(), "orders": BuyerOrders.snapshot(),
 		"last_seen": now()}
+	for key: String in SAVE_MODULES:
+		result[key] = get_node("/root/" + SAVE_MODULES[key]).snapshot()
+	return result
 
 func persist() -> void:
 	if _loaded and not SaveManager.save_data(snapshot()):

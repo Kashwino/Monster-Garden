@@ -1,0 +1,182 @@
+{
+	"catalog_version": 2,
+	"coins": 120,
+	"discovered": [
+		"witness_bud",
+		"murmur_cap"
+	],
+	"inventory": [],
+	"last_modified": 1789926858,
+	"last_seen": 1789926858,
+	"orders": {
+		"active": {
+			"coins": 32,
+			"expires_at": 1789927605,
+			"id": "order_1789926705_0",
+			"quantity": 2,
+			"species_id": "witness_bud",
+			"xp": 14
+		},
+		"fulfilled": 0,
+		"next_at": 0
+	},
+	"plots": [
+		{
+			"genes": {
+				"appendages": 3,
+				"glow": 0.12,
+				"hue": 0.36,
+				"scale": 0.85,
+				"speed": 0.7
+			},
+			"planted_at": 1789926674,
+			"ready_at": 1789926704,
+			"species_id": "witness_bud",
+			"unlocked": true
+		},
+		{
+			"genes": {
+				"appendages": 4,
+				"glow": 0.27,
+				"hue": 0.82,
+				"scale": 0.95,
+				"speed": 1
+			},
+			"planted_at": 1789926695,
+			"ready_at": 1789926725,
+			"species_id": "murmur_cap",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": true
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		},
+		{
+			"genes": {
+
+			},
+			"planted_at": 0,
+			"ready_at": 0,
+			"species_id": "",
+			"unlocked": false
+		}
+	],
+	"progression": {
+		"level": 1,
+		"xp": 0
+	},
+	"schema_version": 2
+}

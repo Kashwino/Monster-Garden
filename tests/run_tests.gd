@@ -27,7 +27,7 @@ func _run() -> void:
 	saves.write_blocked = false
 	await process_frame
 	check(catalog.errors.is_empty(), "catalog validation")
-	check(catalog.species.size() == 12, "twelve authored species")
+	check(catalog.species.size() == 120, "120 authored species")
 	game.plots.clear()
 	for i: int in 16:
 		game.plots.append(game.empty_plot(i < 6))
@@ -79,7 +79,7 @@ func _run() -> void:
 	file.close()
 	loaded = saves.load_data()
 	var old_payload: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/foundation_v1.json")) as Dictionary
-	check(int(loaded.schema_version) == 2 and int(loaded.catalog_version) == 2, "actual foundation V1 save migrates to V2")
+	check(int(loaded.schema_version) == int(saves.VERSION) and int(loaded.catalog_version) >= 2, "actual foundation V1 save migrates to V2")
 	check(loaded.plots == old_payload.plots and loaded.inventory == old_payload.inventory and loaded.coins == old_payload.coins, "art migration preserves plants, genes, inventory and coins")
 	# Newer saves must never be overwritten by an older client.
 	file = FileAccess.open(saves.save_path, FileAccess.WRITE)

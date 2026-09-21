@@ -6,4 +6,11 @@ signal crop_sold(species_id: String, quantity: int, coins: int)
 signal order_fulfilled(order_id: String)
 signal species_discovered(species_id: String)
 signal toast_requested(message: String)
-
+signal reputation_changed(value: int)
+signal quest_claimed(quest_id: String)
+signal bred(species_id: String, is_new: bool)
+signal decoration_placed(decoration_id: String)
+signal plot_ready(plot_index: int)
+signal purchase_made(item: String, currency: String, amount: int)
+signal session_resumed(summary: Dictionary)
+signal settings_changed

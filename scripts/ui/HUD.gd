@@ -329,7 +329,7 @@ func _render_modal() -> void:
 				var available := Catalog.is_available(id, LevelXP.level)
 				var column := _card(entry.name, entry.description, Color.from_hsv(float(entry.genes.hue), 0.3, 0.95) if available else MUTED)
 				column.add_child(_label("%s  ·  %s  ·  %d crops" % [entry.rarity, _duration(int(entry.grow_seconds)), entry.yield], 12, GOLD))
-				var button := _button("Plant · %d coins" % entry.seed_cost if available else "Locked · keeper level %d" % entry.unlock.value, _plant.bind(id), available)
+				var button := _button("Plant · %d coins" % entry.seed_cost if available else "Locked · " + UnlockManager.unlock_text(id), _plant.bind(id), available)
 				button.disabled = not available or Economy.coins < int(entry.seed_cost)
 				column.add_child(button)
 		"basket":
@@ -358,11 +358,11 @@ func _render_modal() -> void:
 				column.add_child(button)
 			_card("Worth the wait", "Courier orders pay double the basket price. Requests expire after 15 minutes; the next courier arrives after a short cooldown.")
 		"codex":
-			_card("%d / %d specimens recorded" % [Game.discovered.size(), Catalog.species.size()], "Four families. Twelve strange beginnings. Harvest a species to record it in your field notes.", LIME)
+			_card("%d / %d specimens recorded" % [Game.discovered.size(), Catalog.species.size()], "Ten families. One hundred and twenty strange lives. Harvest a species to record it in your field notes.", LIME)
 			for id: String in Catalog.species:
 				var entry := Catalog.get_species(id)
 				var found := Game.discovered.has(id)
-				_card(entry.name if found else "Unrecorded specimen · Lv.%d" % entry.unlock.value, entry.description if found else "%s / %s" % [entry.family.capitalize(), entry.rarity], CREAM if found else MUTED)
+				_card(entry.name if found else "Unknown · " + entry.family.capitalize(), entry.description if found else "%s · %s" % [entry.rarity, UnlockManager.unlock_text(id)], CREAM if found else MUTED)
 		"guide":
 			_card("01 / Wake the garden", "Tap the Witness Bud marked READY, then Harvest. Choose an empty plot and plant another seed. Common plants take 30 seconds, even when the game is closed.")
 			_card("02 / Feed the strange", "Sell harvested plants from your basket, or fulfil a courier order for more coins. Harvest and delivery XP unlock new species and plots.")
