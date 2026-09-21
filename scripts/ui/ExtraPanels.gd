@@ -88,3 +88,32 @@ static func boosters(h: Node) -> void:
 		if cost<=0: continue
 		var box: VBoxContainer=h._card(Catalog.get_species(id).name,"Rare seed · standard genes")
 		box.add_child(h._button("Buy seed · %d gems"%cost,func() -> void: Premium.buy_rare_seed(id)))
+
+static func decorations(h: Node) -> void:
+	h._modal_title.text="The garden atelier"
+	h._card("Make the grounds your own", "Buy ornaments as your keeper level rises, then choose a garden site. Store or move them freely.")
+	var names: Array[String]=["NW estate","NE estate","Centre fountain","West upper","East upper","West middle","East middle","West lower","East lower","West courtyard","East courtyard","Entrance"]
+	for key: String in Decorations.placements:
+		var entry: Dictionary=Decorations.placements[key]
+		var c: VBoxContainer=h._card(names[int(key)],Decorations.catalog[entry.id].name)
+		var destination:=OptionButton.new()
+		for slot: int in GardenLayout.DECOR_SLOTS.size():
+			if not Decorations.placements.has(str(slot)):
+				destination.add_item(names[slot]);destination.set_item_metadata(destination.item_count-1,slot)
+		if destination.item_count>0:
+			destination.custom_minimum_size.y=48;c.add_child(destination)
+			c.add_child(h._button("Move to selected site",func() -> void: Decorations.move(int(key),int(destination.get_item_metadata(destination.selected)))))
+		c.add_child(h._button("Return to storage",func() -> void: Decorations.remove(int(key))))
+	for id: String in Decorations.catalog:
+		var e: Dictionary=Decorations.catalog[id]
+		var c: VBoxContainer=h._card(e.name,"Level %d · %d coins\n%s"%[e.level,e.cost,e.description])
+		var buy: Button=h._button("Buy ornament" if LevelXP.level>=int(e.level) else "Unlocks at level %d"%e.level,func() -> void: Decorations.buy(id),true)
+		buy.disabled=not Decorations.can_buy(id);c.add_child(buy)
+		if int(Decorations.storage.get(id,0))>0:
+			var destination:=OptionButton.new()
+			for slot: int in GardenLayout.DECOR_SLOTS.size():
+				if not Decorations.placements.has(str(slot)):
+					destination.add_item(names[slot]);destination.set_item_metadata(destination.item_count-1,slot)
+			if destination.item_count>0:
+				destination.custom_minimum_size.y=48;c.add_child(destination)
+				c.add_child(h._button("Place owned ornament (%d)"%Decorations.storage[id],func() -> void: Decorations.place(id,int(destination.get_item_metadata(destination.selected))),true))

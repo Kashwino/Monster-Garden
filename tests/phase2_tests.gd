@@ -126,6 +126,15 @@ func run() -> void:
 	level.level=game.plot_unlock_level(6)
 	check(game.unlock_plot(6,"coins"), "plot requires level plus purchase")
 	check(not root.get_node("IAPService").purchase("gems_small").ok, "IAP seam never pretends a purchase succeeded")
+	var decor:=root.get_node("Decorations")
+	decor.restore({});level.level=1;economy.coins=10000
+	check(not decor.buy("keeper_castle") and economy.coins==10000, "decoration purchase enforces its level")
+	check(decor.buy("spore_lamp") and economy.coins==9975, "decoration purchase charges exactly once")
+	check(decor.place("spore_lamp",0) and not decor.place("spore_lamp",1), "placing consumes owned stock")
+	check(decor.move(0,1) and decor.remove(1) and int(decor.storage.spore_lamp)==1, "move and storage preserve decoration ownership")
+	decor.restore(decor.snapshot())
+	check(int(decor.storage.spore_lamp)==1, "decoration state round trips")
+	check(game.PLOT_COUNT==24, "garden has 24 reusable plot sites")
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary

@@ -232,23 +232,35 @@ func cone(parent: Node3D, position: Vector3, radius: float, height: float, mat: 
 
 func create_plot(unlocked: bool) -> Node3D:
 	var root := Node3D.new()
-	box(root, Vector3(0, -0.15, 0), Vector3(1.3, 0.24, 1.3), Color("47604b") if unlocked else Color("253e3b"))
-	box(root, Vector3(0, -0.01, 0), Vector3(1.14, 0.08, 1.14), Color("433f3a") if unlocked else Color("2b4540"))
 	if unlocked:
+		box(root, Vector3(0, -.04, 0), Vector3(.96, .14, .96), Color("c4a174"))
+		box(root, Vector3(0, .04, 0), Vector3(.84, .06, .84), Color("72513d"))
 		for i: int in 3:
-			box(root, Vector3(-0.32 + i * 0.32, 0.04, 0), Vector3(0.04, 0.015, 0.91), Color("555043"))
+			box(root, Vector3(-.25+i*.25, .078, 0), Vector3(.035, .012, .74), Color("92694a"))
+	else:
+		for x: float in [-.37,.37]:
+			box(root,Vector3(x,.04,-.37),Vector3(.06,.15,.06),Color("ada984"))
 	return root
 
 func create_island() -> Node3D:
-	var root := Node3D.new()
-	box(root, Vector3(0, -0.62, 0), Vector3(7.1, 0.68, 7.1), Color("2b4240"))
-	box(root, Vector3(0, -0.32, 0), Vector3(7.3, 0.15, 7.3), Color("3a5545"))
-	# Border stones and luminous alien reeds; deterministic scene dressing.
-	for i: int in 12:
-		var angle := i * TAU / 12.0
-		var pos := Vector3(cos(angle) * 4.2, -0.15, sin(angle) * 4.2)
-		ellipsoid(root, pos, Vector3(0.38, 0.3, 0.32), material(Color("385751")))
-	for pos: Vector3 in [Vector3(-3.25, 0, -2.9), Vector3(3.2, 0, -2.8), Vector3(-3.2, 0, 2.8)]:
-		for i: int in 3:
-			cone(root, pos + Vector3(i * 0.18, 0.25 + i * 0.1, 0), 0.12, 0.8 + i * 0.2, material(Color("a1c890"), 0.4))
-	return root
+	return preload("res://scripts/art/GardenArt.gd").garden(self)
+
+func create_decoration(id: String) -> Node3D:
+	var entry: Dictionary=Decorations.catalog.get(id,{})
+	return preload("res://scripts/art/GardenArt.gd").decoration(self,String(entry.get("mesh","lamp")))
+
+func create_burst() -> GPUParticles3D:
+	var p:=GPUParticles3D.new()
+	p.amount=24;p.lifetime=.7;p.one_shot=true;p.explosiveness=1.0
+	p.emitting=false
+	var m:=ParticleProcessMaterial.new()
+	m.direction=Vector3.UP;m.spread=110;m.initial_velocity_min=1;m.initial_velocity_max=2.4
+	m.gravity=Vector3(0,-3,0);m.scale_min=.035;m.scale_max=.075
+	m.color=Color("e3d68a")
+	p.process_material=m
+	var mesh:=SphereMesh.new()
+	mesh.radius=.5;mesh.height=1;mesh.radial_segments=6;mesh.rings=3
+	mesh.material=material(Color("d9dda0"),.3)
+	p.draw_pass_1=mesh
+	p.visibility_aabb=AABB(Vector3(-3,-3,-3),Vector3(6,6,6))
+	return p

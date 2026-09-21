@@ -30,6 +30,9 @@ Notifications="*res://scripts/core/Notifications.gd"
 Premium="*res://scripts/core/Premium.gd"
 IAPService="*res://scripts/core/IAPService.gd"
 
+Decorations="*res://scripts/core/Decorations.gd"
+AudioManager="*res://scripts/services/AudioManager.gd"
+
 [display]
 window/size/viewport_width=480
 window/size/viewport_height=900

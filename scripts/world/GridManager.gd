@@ -1,5 +1,5 @@
 extends Node3D
-const SPACING := 1.55
+const SPACING := 1.05
 var _plots: Array[Node3D] = []
 var _plants: Array[Node3D] = []
 var _labels: Array[Label3D] = []
@@ -20,7 +20,7 @@ func _ready() -> void:
 		_build()
 
 func plot_position(index: int) -> Vector3:
-	return Vector3((index % 4 - 1.5) * SPACING, 0, (index / 4 - 1.5) * SPACING)
+	return GardenLayout.plot_position(index)
 
 func _build() -> void:
 	if not _plots.is_empty():
@@ -35,18 +35,18 @@ func _build() -> void:
 		var label := Label3D.new()
 		label.position = Vector3(0, 0.18, 0)
 		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		label.font_size = 38
-		label.pixel_size = 0.008
+		label.font_size = 28
+		label.pixel_size = 0.007
 		label.modulate = Color("e5e7cf")
 		label.no_depth_test = true
 		plot.add_child(label)
 		_labels.append(label)
 		_refresh_plot(i)
 	_selector = Node3D.new()
-	for z: float in [-0.67, 0.67]:
-		AssetFactory.box(_selector, Vector3(0, 0.065, z), Vector3(1.39, 0.035, 0.035), Color("dbe6a7"))
-	for x: float in [-0.67, 0.67]:
-		AssetFactory.box(_selector, Vector3(x, 0.065, 0), Vector3(0.035, 0.035, 1.39), Color("dbe6a7"))
+	for z: float in [-0.49, 0.49]:
+		AssetFactory.box(_selector, Vector3(0, 0.065, z), Vector3(1.01, 0.035, 0.035), Color("dbe6a7"))
+	for x: float in [-0.49, 0.49]:
+		AssetFactory.box(_selector, Vector3(x, 0.065, 0), Vector3(0.035, 0.035, 1.01), Color("dbe6a7"))
 	add_child(_selector)
 	_select(Game.selected_plot)
 
@@ -69,8 +69,13 @@ func _update_plant(index: int) -> void:
 	var stage := Catalog.stage_for(Game.progress(index)) if plot.species_id != "" else "empty"
 	if stage != _stages[index]:
 		if is_instance_valid(_plants[index]):
-			_plots[index].remove_child(_plants[index])
-			_plants[index].queue_free()
+			var old_plant:=_plants[index]
+			if stage=="empty":
+				var tween:=old_plant.create_tween()
+				tween.tween_property(old_plant,"scale",old_plant.scale*1.2,.12)
+				tween.tween_property(old_plant,"scale",Vector3.ZERO,.2)
+				tween.tween_callback(old_plant.queue_free)
+			else: old_plant.queue_free()
 		_plants[index] = null
 		if plot.species_id != "":
 			var plant := AssetFactory.create(plot.species_id, stage, plot.genes)
@@ -84,7 +89,7 @@ func _update_plant(index: int) -> void:
 	label.position.y = 1.5 if plot.species_id != "" else 0.18
 	label.modulate = Color("dceab1") if stage == "blooming" else Color("9cb1a7")
 	if not bool(plot.unlocked):
-		label.text = "Lv.%d" % Game.plot_unlock_level(index)
+		label.text = "Lv.%d" % Game.plot_unlock_level(index) if index < 10 or index == Game.selected_plot else ""
 	elif plot.species_id == "":
 		label.text = "+"
 	elif stage == "blooming":
@@ -107,7 +112,8 @@ func select_at(screen: Vector2, camera: Camera3D) -> void:
 	if point == null:
 		return
 	var hit: Vector3 = point
-	var x := int(round(hit.x / SPACING + 1.5))
-	var z := int(round(hit.z / SPACING + 1.5))
-	if x >= 0 and x < 4 and z >= 0 and z < 4:
-		Game.select_plot(z * 4 + x)
+	for i: int in _plots.size():
+		var delta:=hit-plot_position(i)
+		if absf(delta.x)<.5 and absf(delta.z)<.5:
+			Game.select_plot(i)
+			return

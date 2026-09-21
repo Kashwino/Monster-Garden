@@ -1,7 +1,7 @@
 extends Node
 ## Only persistence interface: save_data(payload) and load_data().
 ## Backend seam: a future cloud adapter must keep local durability first.
-const VERSION := 9
+const VERSION := 10
 var save_path: String = OS.get_environment("MONSTER_GARDEN_SAVE_PATH") if OS.has_environment("MONSTER_GARDEN_SAVE_PATH") else "user://garden.json"
 var write_blocked: bool = false
 signal cloud_loaded(payload: Dictionary)
@@ -110,6 +110,10 @@ func _migrate(data: Dictionary) -> Dictionary:
 		migrated["cloud_state"]={"auth":{},"choices":{}}
 		migrated["last_modified"]=int(migrated.get("last_modified",0))*1000
 		migrated["schema_version"]=9
+	if int(migrated.schema_version)<10:
+		migrated["decorations"]={"storage":{},"placements":{}}
+		migrated["audio"]={}
+		migrated["schema_version"]=10
 	return migrated
 
 func _accept_cloud(payload: Dictionary) -> void:

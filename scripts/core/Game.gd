@@ -2,8 +2,8 @@ extends Node
 signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
-const PLOT_COUNT := 16
-const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications", "premium":"Premium"}
+const PLOT_COUNT := GardenLayout.PLOT_COUNT
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications", "premium":"Premium", "decorations":"Decorations", "audio":"AudioManager"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []

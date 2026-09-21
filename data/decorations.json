@@ -1,0 +1,12 @@
+[
+ {"id":"spore_lamp","name":"Spore lantern","description":"A warm light with a slow heartbeat.","level":1,"cost":25,"mesh":"lamp"},
+ {"id":"eye_topiary","name":"Watchful topiary","description":"A leafy silhouette that keeps an eye on the paths.","level":2,"cost":45,"mesh":"topiary"},
+ {"id":"whisper_fountain","name":"Whisper fountain","description":"Water murmurs through a ring of stone mouths.","level":3,"cost":80,"mesh":"fountain"},
+ {"id":"ivory_gazebo","name":"Ivory gazebo","description":"A quiet pavilion beneath a mushroom-shaped roof.","level":4,"cost":130,"mesh":"gazebo"},
+ {"id":"glass_nursery","name":"Glass conservatory","description":"A luminous greenhouse for impossible life.","level":5,"cost":220,"mesh":"greenhouse"},
+ {"id":"keeper_castle","name":"Keeper’s manor","description":"A small turreted home for a very strange gardener.","level":7,"cost":400,"mesh":"castle"},
+ {"id":"moon_pond","name":"Moon pool","description":"A pool that reflects a different sky.","level":8,"cost":300,"mesh":"pond"},
+ {"id":"bone_arch","name":"Bone arch","description":"Two ivory tendrils meet over the garden path.","level":10,"cost":420,"mesh":"arch"},
+ {"id":"dream_observatory","name":"Dream observatory","description":"Tracks the movement of sleeping stars.","level":12,"cost":650,"mesh":"observatory"},
+ {"id":"bloom_tower","name":"Bloom bell tower","description":"Its bells open like hungry flowers.","level":15,"cost":850,"mesh":"tower"}
+]

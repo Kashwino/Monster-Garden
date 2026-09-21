@@ -7,7 +7,7 @@ var _dragged := false
 var _mouse_down := false
 var _pinching := false
 const MIN_ZOOM := 10.0
-const MAX_ZOOM := 22.0
+const MAX_ZOOM := 40.0
 
 func _ready() -> void:
 	camera.position = Vector3(12, 15, 12)
@@ -69,9 +69,9 @@ func _pan(relative: Vector2) -> void:
 	var right := camera.global_transform.basis.x
 	var forward := Vector3(-right.z, 0, right.x)
 	position -= (right * relative.x + forward * relative.y) * camera.size / get_viewport().get_visible_rect().size.y
-	position.x = clampf(position.x, -2.5, 2.5)
-	position.z = clampf(position.z, -2.5, 2.5)
+	position.x = clampf(position.x, -6.0, 6.0)
+	position.z = clampf(position.z, -6.0, 6.0)
 
 func reset_view() -> void:
 	position = Vector3.ZERO
-	camera.size = 20.0
+	camera.size = 33.0

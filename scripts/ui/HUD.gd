@@ -4,7 +4,7 @@ const Extra = preload("res://scripts/ui/ExtraPanels.gd")
 const INK := Color("13272c")
 const PANEL := Color("20373a")
 const CREAM := Color("e6edda")
-const MUTED := Color("9bafa7")
+const MUTED := Color("b2c2a9")
 const LIME := Color("c2dc93")
 const GOLD := Color("eed09a")
 var _root: Control
@@ -45,6 +45,8 @@ func _ready() -> void:
 	Game.plot_changed.connect(func(_i: int) -> void: _refresh())
 	Economy.changed.connect(_roll_coins)
 	Premium.changed.connect(_queue_modal_refresh)
+	Decorations.changed.connect(_queue_modal_refresh)
+	LevelXP.leveled_up.connect(_level_flash)
 	LevelXP.changed.connect(_refresh)
 	Inventory.changed.connect(_queue_modal_refresh)
 	BuyerOrders.changed.connect(_queue_modal_refresh)
@@ -92,7 +94,7 @@ func _button(text: String, callback: Callable, primary: bool = false) -> Button:
 	var button := Button.new()
 	button.text = text
 	button.custom_minimum_size.y = 48
-	button.pressed.connect(callback)
+	button.pressed.connect(func() -> void: AudioManager.play("click","UI");callback.call())
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	if primary:
 		button.add_theme_stylebox_override("normal", _style(LIME, 14, 12))
@@ -124,7 +126,7 @@ func _build_header() -> void:
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(margin)
 	var column := _vbox(margin, 10)
-	column.add_child(_label("THE NIGHT NURSERY     /     FIELD 01", 12, MUTED))
+	column.add_child(_label("THE LIVING ESTATE     /     FIELD 01", 12, MUTED))
 	var row := HBoxContainer.new()
 	column.add_child(row)
 	var name_label := _label("Monster Garden", 30)
@@ -254,7 +256,7 @@ func _refresh() -> void:
 	if Game.plots.is_empty():
 		return
 	_coins.text = "%d  coins" % int(_display_coins)
-	_level.text = "KEEPER %02d    ·    %d / %d XP" % [LevelXP.level, LevelXP.xp, LevelXP.required_xp()]
+	_level.text = "LV %02d · %d GEMS · %d/%d XP" % [LevelXP.level, Premium.gems, LevelXP.xp, LevelXP.required_xp()]
 	_xp.max_value = LevelXP.required_xp()
 	_xp.value = LevelXP.xp
 	var index := Game.selected_plot
@@ -324,6 +326,8 @@ func _render_modal() -> void:
 		child.queue_free()
 	_modal_title.text = {"seeds": "The seed cabinet", "basket": "Your harvest", "orders": "The night courier", "codex": "Field notes", "guide": "A keeper’s guide"}.get(_tab, "")
 	match _tab:
+		"decorations":
+			Extra.decorations(self)
 		"boosters":
 			Extra.boosters(self)
 		"breed":
@@ -355,6 +359,7 @@ func _render_modal() -> void:
 					continue
 				var entry := Catalog.get_species(id)
 				var column := _card("%s × %d" % [entry.name, count], "Individual genes are preserved in your harvest stacks.")
+				column.add_child(_button("Sell one · %d coins" % int(entry.sell_value), func() -> void: Economy.sell(id, 1), true))
 				column.add_child(_button("Sell all · %d coins" % (count * int(entry.sell_value)), func() -> void: Economy.sell(id, count), true))
 		"orders":
 			Extra.orders(self)
@@ -369,7 +374,7 @@ func _render_modal() -> void:
 			_card("02 / Feed the strange", "Sell harvested plants from your basket, or fulfil a courier order for more coins. Harvest and delivery XP unlock new species and plots.")
 			_card("03 / Make room", "Tap a locked plot to see its level and coin cost. Drag the garden to pan; pinch to zoom. On desktop, use the mouse wheel.")
 			_card("Saved as you grow", "Your garden saves after transactions, every 15 seconds and when the app pauses. No account or internet connection is required.")
-			_card("Monster Garden · foundation", "Original procedural monster art. Built with Godot 4.3. Advanced breeding, quests and cloud services are planned for later phases.")
+			_card("A living collection", "Breed gene-carrying seeds, follow daily goals, deliver gene-specific orders and discover 120 monster species. Original art and sound, built with Godot 4.3.")
 
 func _plant(id: String) -> void:
 	var index := Game.selected_plot
@@ -398,6 +403,8 @@ func _build_goals() -> void:
 	toggle.position=Vector2(18,220)
 	toggle.custom_minimum_size=Vector2(80,44)
 	_root.add_child(toggle)
+	var atelier:=_button("Decorate",_open.bind("decorations"))
+	atelier.position=Vector2(108,220);_root.add_child(atelier)
 
 func _away_summary(summary: Dictionary) -> void:
 	var dialog := AcceptDialog.new()
@@ -420,3 +427,9 @@ func _cloud_conflict(local: Dictionary, remote: Dictionary) -> void:
 	dialog.custom_action.connect(func(action: StringName) -> void:
 		if action=="cloud": Events.cloud_choice.emit("remote");dialog.queue_free())
 	dialog.popup_centered(Vector2i(420,230))
+
+func _level_flash(_value: int) -> void:
+	var flash:=ColorRect.new()
+	flash.color=Color(.85,1,.55,.25);flash.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);_root.add_child(flash)
+	var tween:=create_tween();tween.tween_property(flash,"color:a",0.0,.8);tween.tween_callback(flash.queue_free)
