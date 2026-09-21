@@ -40,6 +40,10 @@ func _ready() -> void:
 	_build_modal()
 	_build_toast()
 	_build_goals()
+	var tutorial:=Control.new()
+	tutorial.set_script(preload("res://scripts/ui/TutorialOverlay.gd"))
+	tutorial.hud=self
+	_root.add_child(tutorial)
 	Game.restored.connect(_on_restored)
 	Game.selection_changed.connect(func(_i: int) -> void: _refresh())
 	Game.plot_changed.connect(func(_i: int) -> void: _refresh())

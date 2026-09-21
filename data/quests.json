@@ -223,11 +223,11 @@
   },
   {
     "id": "tutorial_plant",
-    "title": "Choose an empty plot and plant Witness Bud.",
+    "title": "Plant your first Witness Bud.",
     "objective": {
       "type": "plant",
       "count": 1,
-      "target": ""
+      "target": "witness_bud"
     },
     "reward": {},
     "unlock_level": 1,
@@ -237,7 +237,7 @@
   },
   {
     "id": "tutorial_wait",
-    "title": "Let your new creature grow.",
+    "title": "Wait for your new plant to bloom.",
     "objective": {
       "type": "ready",
       "count": 1,
@@ -251,7 +251,7 @@
   },
   {
     "id": "tutorial_harvest",
-    "title": "Harvest your fully grown creature.",
+    "title": "Harvest your blooming creature.",
     "objective": {
       "type": "harvest",
       "count": 1,
@@ -265,7 +265,7 @@
   },
   {
     "id": "tutorial_sell",
-    "title": "Sell one crop from your basket.",
+    "title": "Sell one crop from the basket.",
     "objective": {
       "type": "sell",
       "count": 1,
@@ -279,13 +279,16 @@
   },
   {
     "id": "tutorial_order",
-    "title": "Fulfil your first courier order.",
+    "title": "Gather crops and fulfil a delivery.",
     "objective": {
       "type": "order",
       "count": 1,
       "target": ""
     },
-    "reward": {},
+    "reward": {
+      "xp": 10,
+      "coins": 65
+    },
     "unlock_level": 1,
     "after": "",
     "is_tutorial": true,
@@ -293,7 +296,7 @@
   },
   {
     "id": "tutorial_breed",
-    "title": "Build a bench and graft your first seed.",
+    "title": "Build a bench and graft two crops.",
     "objective": {
       "type": "breed",
       "count": 1,

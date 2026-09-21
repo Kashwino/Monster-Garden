@@ -33,6 +33,8 @@ IAPService="*res://scripts/core/IAPService.gd"
 Decorations="*res://scripts/core/Decorations.gd"
 AudioManager="*res://scripts/services/AudioManager.gd"
 
+Tutorial="*res://scripts/core/Tutorial.gd"
+
 [display]
 window/size/viewport_width=480
 window/size/viewport_height=900

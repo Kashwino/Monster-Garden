@@ -22,7 +22,7 @@ func _ready() -> void:
 		if fresh: record("breed_new", 1, id))
 	Events.species_discovered.connect(func(id: String) -> void: record("discover", 1, id))
 	Events.decoration_placed.connect(func(id: String) -> void: record("decoration", 1, id))
-	Events.plot_ready.connect(func(_i: int) -> void: record("ready", 1))
+	Events.plot_ready.connect(func(index: int) -> void: record("ready", 1, str(index)))
 	LevelXP.leveled_up.connect(func(level: int) -> void: record("level", level))
 	_midnight = Timer.new()
 	_midnight.one_shot = true
@@ -45,6 +45,7 @@ func active_quests() -> Array[Dictionary]:
 func record(kind: String, amount: int, target: String = "") -> void:
 	for id: String in definitions:
 		if not is_active(id): continue
+		if bool(definitions[id].get("is_tutorial",false)) and kind=="ready" and target!=str(Tutorial.target_plot): continue
 		var objective: Dictionary = definitions[id].objective
 		if objective.type != kind or (String(objective.target) != "" and objective.target != target): continue
 		var previous := int(progress.get(id, 0))

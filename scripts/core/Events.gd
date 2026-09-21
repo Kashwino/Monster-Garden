@@ -19,3 +19,5 @@ signal application_paused
 signal application_resumed
 
 signal cloud_choice(choice: String)
+
+signal tutorial_step(id: String)
