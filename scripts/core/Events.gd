@@ -14,3 +14,6 @@ signal plot_ready(plot_index: int)
 signal purchase_made(item: String, currency: String, amount: int)
 signal session_resumed(summary: Dictionary)
 signal settings_changed
+
+signal application_paused
+signal application_resumed

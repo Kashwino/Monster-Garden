@@ -3,7 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := 16
-const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager"}
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
@@ -178,8 +178,9 @@ func _restore(payload: Dictionary) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
+		Events.application_paused.emit()
 		persist()
 	elif what == NOTIFICATION_APPLICATION_RESUMED and _loaded:
 		for i: int in plots.size():
 			plot_changed.emit(i)
-		BuyerOrders.refresh()
+		Events.application_resumed.emit()

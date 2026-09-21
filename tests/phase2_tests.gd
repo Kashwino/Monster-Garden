@@ -91,6 +91,23 @@ func run() -> void:
 	check(orders.slots[0].order.is_empty() and orders.reputation==32, "expiry vacates slot and lowers reputation")
 	orders.refresh()
 	check(orders.reputation==32, "expiry penalty is applied once")
+	var clock := root.get_node("OfflineProgression")
+	var notices := root.get_node("Notifications")
+	game.plots[3]=game._plant_data("witness_bud",game.now()-100)
+	clock.last_active=game.now()-80
+	clock.reconcile()
+	check(int(clock.last_summary.ready)>=1, "offline summary counts completed growth")
+	clock.reconcile()
+	check(int(clock.last_summary.ready)==0, "resume summary does not repeat completions")
+	notices.enabled=true
+	game.plots[4]=game._plant_data("witness_bud",game.now())
+	game.plots[5]=game._plant_data("murmur_cap",game.now()+10)
+	notices.schedule_pending()
+	var latest:=0
+	for plot: Dictionary in game.plots:
+		if plot.species_id!="" and float(plot.ready_at)>game.now(): latest=maxi(latest,int(plot.ready_at))
+	check(notices.scheduled_at==latest, "notification uses longest pending completion")
+	check(not notices.supported(), "native notification is a no-op in editor")
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary

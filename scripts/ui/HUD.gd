@@ -48,6 +48,7 @@ func _ready() -> void:
 	Inventory.changed.connect(_queue_modal_refresh)
 	BuyerOrders.changed.connect(_queue_modal_refresh)
 	Events.toast_requested.connect(show_toast)
+	Events.session_resumed.connect(_away_summary)
 	var timer := Timer.new()
 	timer.wait_time = 0.5
 	timer.timeout.connect(_refresh)
@@ -392,3 +393,11 @@ func _build_goals() -> void:
 	toggle.position=Vector2(18,220)
 	toggle.custom_minimum_size=Vector2(80,44)
 	_root.add_child(toggle)
+
+func _away_summary(summary: Dictionary) -> void:
+	var dialog := AcceptDialog.new()
+	dialog.title="While you were away"
+	dialog.dialog_text="%d monster plants finished growing.\n%d courier orders expired." % [summary.ready,summary.expired]
+	_root.add_child(dialog)
+	dialog.popup_centered(Vector2i(380,170))
+	dialog.confirmed.connect(dialog.queue_free)
