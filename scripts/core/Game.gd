@@ -3,7 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := 16
-const SAVE_MODULES := {"unlocks":"UnlockManager"}
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
@@ -92,9 +92,7 @@ func harvest(index: int) -> bool:
 	plots[index] = empty_plot(true)
 	Inventory.add_crop(plot.species_id, plot.genes, int(entry.yield))
 	LevelXP.add_xp(int(entry.xp))
-	if not discovered.has(plot.species_id):
-		discovered.append(plot.species_id)
-		Events.species_discovered.emit(plot.species_id)
+	discover(plot.species_id)
 	plot_changed.emit(index)
 	Events.crop_harvested.emit(plot.species_id, int(entry.yield), plot.genes.duplicate(true))
 	Events.toast_requested.emit("+%d %s · +%d XP" % [entry.yield, entry.name, entry.xp])
@@ -103,6 +101,26 @@ func harvest(index: int) -> bool:
 
 func plot_unlock_level(index: int) -> int:
 	return 2 + maxi(0, index - 6) / 2
+
+func discover(id: String) -> bool:
+	if discovered.has(id) or not Catalog.species.has(id):
+		return false
+	discovered.append(id)
+	Events.species_discovered.emit(id)
+	return true
+
+func plant_seed(index: int, key: String) -> bool:
+	if index < 0 or index >= plots.size() or not plots[index].unlocked or plots[index].species_id != "":
+		return false
+	var seed := Inventory.take_seed(key)
+	if seed.is_empty():
+		return false
+	plots[index] = _plant_data(seed.species_id, now())
+	plots[index].genes = seed.genes.duplicate(true)
+	plot_changed.emit(index)
+	Events.crop_planted.emit(index, seed.species_id)
+	persist()
+	return true
 
 func plot_unlock_cost(index: int) -> int:
 	return 35 + maxi(0, index - 6) * 15
@@ -122,7 +140,7 @@ func _on_level_up(level: int) -> void:
 	Events.toast_requested.emit("LEVEL %d · +25 coins · new seeds await" % level)
 
 func snapshot() -> Dictionary:
-	var result := {"catalog_version": 3, "plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "coins": Economy.coins,
+	var result := {"catalog_version": 3, "plots": plots.duplicate(true), "inventory": Inventory.snapshot(), "seeds": Inventory.seeds.duplicate(true), "coins": Economy.coins,
 		"progression": LevelXP.snapshot(), "discovered": discovered.duplicate(), "orders": BuyerOrders.snapshot(),
 		"last_seen": now()}
 	for key: String in SAVE_MODULES:
@@ -137,6 +155,7 @@ func _restore(payload: Dictionary) -> void:
 	LevelXP.restore(payload.get("progression", {}))
 	Economy.coins = maxi(0, int(payload.get("coins", 120)))
 	Inventory.restore(payload.get("inventory", []))
+	Inventory.restore_seeds(payload.get("seeds", []))
 	discovered.assign(payload.get("discovered", []))
 	var stored: Array = payload.get("plots", [])
 	var completed := 0

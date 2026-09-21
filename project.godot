@@ -19,6 +19,8 @@ SaveManager="*res://scripts/core/SaveManager.gd"
 AssetFactory="*res://scripts/art/AssetFactory.gd"
 Game="*res://scripts/core/Game.gd"
 BuyerOrders="*res://scripts/core/BuyerOrders.gd"
+Breeding="*res://scripts/core/Breeding.gd"
+DiscoveryRewards="*res://scripts/core/DiscoveryRewards.gd"
 
 [display]
 window/size/viewport_width=480

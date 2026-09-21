@@ -1,4 +1,5 @@
 extends CanvasLayer
+const Extra = preload("res://scripts/ui/ExtraPanels.gd")
 ## Presentation and commands only; all prices, availability and transactions live in core.
 const INK := Color("13272c")
 const PANEL := Color("20373a")
@@ -173,7 +174,7 @@ func _build_footer() -> void:
 	var nav := HBoxContainer.new()
 	nav.add_theme_constant_override("separation", 8)
 	footer.add_child(nav)
-	for tab: String in ["seeds", "basket", "orders", "codex"]:
+	for tab: String in ["seeds", "basket", "orders", "codex", "breed"]:
 		var button := _button(tab.capitalize(), _open.bind(tab))
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.add_theme_font_size_override("font_size", 14)
@@ -323,7 +324,17 @@ func _render_modal() -> void:
 		child.queue_free()
 	_modal_title.text = {"seeds": "The seed cabinet", "basket": "Your harvest", "orders": "The night courier", "codex": "Field notes", "guide": "A keeper’s guide"}.get(_tab, "")
 	match _tab:
+		"breed":
+			Extra.breed(self)
+		"events":
+			Extra.events(self)
 		"seeds":
+			_modal_body.add_child(_button("Seasonal events & spore drifts", _open.bind("events")))
+			for seed: Dictionary in Inventory.seeds:
+				var c := _card("Owned seed · " + Catalog.get_species(seed.species_id).name, "%d seeds · gene glow %.2f" % [seed.quantity, seed.genes.glow])
+				c.add_child(_button("Plant owned seed", func() -> void:
+					if Game.plant_seed(Game.selected_plot, seed.key): _close()
+					else: show_toast("Select an empty purchased plot first."), true))
 			for id: String in Catalog.species:
 				var entry := Catalog.get_species(id)
 				var available := Catalog.is_available(id, LevelXP.level)

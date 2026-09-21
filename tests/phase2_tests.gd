@@ -28,6 +28,31 @@ func run() -> void:
 	check(unlock.is_available("many_eyed_oracle"), "single availability resolver sees grant")
 	check(not unlock.grant("discover_many_eyed_oracle"), "duplicate unlock is idempotent")
 	unlock.granted.clear()
+	var breeding := root.get_node("Breeding")
+	var inventory := root.get_node("Inventory")
+	var economy := root.get_node("Economy")
+	var level := root.get_node("LevelXP")
+	inventory.stacks.clear()
+	inventory.seeds.clear()
+	breeding.bench_owned = true
+	var genes: Dictionary = inventory.normalize_genes({"hue":.98,"glow":.8,"scale":1.1,"appendages":4})
+	inventory.add_crop("witness_bud", genes, 1)
+	var key: String = inventory.stack_key("witness_bud", genes)
+	check(not breeding.can_breed(key,key), "same stack requires two units")
+	check(breeding.combine(key,key).is_empty() and inventory.count_species("witness_bud")==1, "failed breed consumes nothing")
+	inventory.add_crop("witness_bud", genes, 1)
+	var original_recipes: Array = breeding.recipes.duplicate(true)
+	breeding.recipes[0].chance = 1.0
+	var result: Dictionary = breeding.combine(key,key)
+	check(not result.is_empty() and inventory.count_species("witness_bud")==0, "breeding consumes exactly two units")
+	check(inventory.seeds.size()==1 and inventory.seeds[0].genes==result.genes, "offspring seed retains genes")
+	check(result.species_id=="many_eyed_oracle" and unlock.is_available(result.species_id), "rare gene recipe discovers and unlocks a species")
+	var coins_before: int = economy.coins
+	check(not game.discover(result.species_id) and economy.coins==coins_before, "discovery reward only once")
+	game.plots[2]=game.empty_plot(true)
+	check(game.plant_seed(2,inventory.seeds[0].key), "bred seed plants without another purchase")
+	check(game.plots[2].genes==result.genes, "planted offspring retains genes")
+	breeding.recipes=original_recipes
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary
