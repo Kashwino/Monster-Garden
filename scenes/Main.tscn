@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/world/GridManager.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/world/CameraRig.gd" id="2"]
@@ -7,12 +7,14 @@
 [ext_resource type="Script" path="res://scripts/world/DecorWorld.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/world/Juice.gd" id="5"]
 
+[ext_resource type="Script" path="res://scripts/world/GraphicsSettings.gd" id="6"]
+
 [sub_resource type="Environment" id="Environment_garden"]
 background_mode = 1
 background_color = Color(0.69, 0.79, 0.57, 1)
 ambient_light_source = 3
 ambient_light_color = Color(0.84, 0.9, 0.8, 1)
-ambient_light_energy = 0.6
+ambient_light_energy = 0.45
 tonemap_mode = 0
 fog_enabled = false
 fog_light_color = Color(0.055, 0.105, 0.12, 1)
@@ -30,7 +32,7 @@ environment = SubResource("Environment_garden")
 [node name="Sun" type="DirectionalLight3D" parent="."]
 rotation_degrees = Vector3(-55, -32, 0)
 light_color = Color(1, 0.91, 0.75, 1)
-light_energy = 0.8
+light_energy = 0.55
 shadow_enabled = true
 directional_shadow_max_distance = 35.0
 
@@ -61,5 +63,8 @@ script = ExtResource("4")
 
 [node name="Juice" type="Node3D" parent="."]
 script = ExtResource("5")
+
+[node name="GraphicsSettings" type="Node" parent="."]
+script = ExtResource("6")
 
 [connection signal="garden_tapped" from="CameraRig" to="GridManager" method="select_at"]

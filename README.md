@@ -1,92 +1,94 @@
 # Monster Garden
 
-A portrait isometric farming game about cultivating the beautifully strange.
-Built with **Godot 4.3 / GDScript / Mobile renderer** for Android.
+A portrait isometric mobile game about cultivating the beautifully strange.
+**Godot 4.3 · GDScript · Mobile renderer · Android ARM64**
 
-![In-game portrait garden, captured in Godot](docs/images/garden.png)
+![A fully developed garden, captured in the running game](docs/images/full-garden.png)
 
 ## Play in the editor
 
-1. Clone this repository, open Godot 4.3, and import `project.godot`.
-2. Wait for imports, then press **F6 on `scenes/Main.tscn`** or **F5**.
-3. Tap the starter Witness Bud marked **READY**, then **Harvest**.
-4. Select an empty plot and choose a seed. Commons grow in 30 real seconds.
-5. Sell from **Basket**, or use **Orders** for double-value courier deliveries.
-6. Gain XP, unlock stranger species, and expand the garden.
+1. Clone this repository and import `project.godot` in **Godot 4.3**.
+2. Wait for imports, then press **F5**.
+3. Follow the skippable tutorial: plant → wait → harvest → sell → deliver → breed.
+4. Start with **six owned plots**. The other 18 sites require both their keeper level
+   and a purchase. Gems cannot bypass the level requirement.
+5. Use **Decorate** to buy level-gated ornaments, choose their sites, move them or
+   return them to storage. The manor and conservatory are earned decorations.
 
-Touch: tap plots, drag to pan, pinch to zoom. Desktop: click, drag, mouse wheel.
-The game saves after transactions, every 15 seconds, and when paused.
-Growth continues while closed; reopen to see a completion summary.
+Tap plots, drag to pan, pinch to zoom. Desktop: click, drag, mouse wheel.
+The opening garden is intentionally smaller than the developed garden pictured above.
+Commons start at 30 seconds; Mythics take hours. Progress is saved automatically
+and growth uses real timestamps, including while the app is closed.
 
-## Implemented foundation
+## What's implemented
 
-- Six open plots within a 16-plot floating garden, level/coin expansion.
-- Twelve authored monster species, four silhouettes, five rarity tiers.
-- Real-time timestamp growth, planting costs, harvested inventory, selling, XP.
-- Gene-aware inventory stacks from day one (species + stable gene hash).
-- A courier order with expiry and cooldown, catalogue/shop and field notes.
-- Central AssetFactory: GLB scene paths with procedural fallback; five original Witness Bud growth models.
-- Gene-driven hue/scale/glow and optional appendages, isolated per imported scene instance.
-- Plants sway and pop into each growth stage.
-- Versioned local JSON saves, backup, legacy inventory migration, future-version protection.
-- Android ARM64 export preset. No paid services, store SDK, or account required.
+- **120 monster species / ten families / five rarities**, generated as JSON data;
+  90 level unlocks and 30 event unlocks, including breeding, quests, reputation,
+  seasonal windows and spore drifts. Locked species remain visible in the codex.
+- One **AssetFactory** resolves all models, including five original Witness Bud
+  GLBs and family geometry. Growth stages, hue, scale, appendages, glow and motion
+  come from data; replacing an art path requires only a catalog edit.
+- Gene-aware crop stacks, a purchasable **breeding bench**, inherited and mutated
+  seed genes, rare species recipes and one-time discovery rewards.
+- Signal-driven progression quests, three UTC daily goals and claimable rewards.
+- Three simultaneous courier orders, expiry/cooldowns, mixed and gene-specific
+  requests, coin/gem rerolls and reputation tiers.
+- Offline summary, earned gems, rare seeds, instant growth and fertiliser.
+- A landscaped estate with 24 reusable plot holders, ten purchasable decoration
+  types and twelve placement sites, inspired by the supplied reference layout.
+- Harvest/plant tweens, floating rewards, pooled GPU particles, counter animation,
+  level feedback, original synthesized music/SFX/UI sounds and volume controls.
+- Saved, quest-driven onboarding; settings, confirmed reset and local analytics logs.
+- Schema **12** local saves, backups, legacy migrations and future-version protection.
+  Optional Firebase REST backend uses the **same** `save_data` / `load_data` interface.
 
-This repository started empty. There was no previous game or real legacy save to inspect.
-An actual foundation v1 save is included for testing the art-stage migration.
-The legacy fixtures describe this project's supported schema; they do not claim compatibility
-with an unseen earlier implementation.
+## Integration boundaries
 
-See [the art-swap guide](docs/ART_PIPELINE.md) and [verification notes](docs/TESTING.md).
+The game runs offline without accounts or paid services. Firebase is **disabled by
+default**; anonymous auth, conditional writes and conflict selection are implemented,
+ but live configuration and credentials are not included. See [cloud setup](docs/CLOUD_SAVE.md).
+Android notifications have an isolated plugin contract and are a no-op without a
+native plugin. IAP and account linking are explicit stubs; there is no store SDK or
+real purchase flow. Analytics only logs locally.
 
-## Android build
+A signed APK, notification delivery and physical Android performance have **not**
+been validated. See [measured desktop results and device checklist](docs/PERFORMANCE.md).
 
-Install Godot **4.3 export templates**, OpenJDK **17**, and the Android SDK. Set the
-Java SDK and Android SDK paths in Godot's Editor Settings, as described in the
-[Godot 4.3 Android export guide](https://docs.godotengine.org/en/4.3/tutorials/export/exporting_for_android.html).
-Create a `builds` directory, then use **Project → Export → Android → Export Project**
-with debug export enabled for local device testing. The preset creates
-`builds/monster-garden.apk` for ARM64. Release signing is intentionally not checked in.
-
-No APK or physical-device performance certification is implied by the source preset.
-
-## Automated checks
-
-After importing in Godot 4.3:
+## Test and reproduce
 
 ```sh
-MONSTER_GARDEN_SAVE_PATH=user://integration-test.json godot --headless --path . --script tests/run_tests.gd
-MONSTER_GARDEN_SAVE_PATH=user://art-test.json godot --headless --path . --script tests/art_tests.gd
+GODOT_BIN=/path/to/godot python tools/verify.py
+python tools/expand_species.py
 ```
 
-The isolated test save is deleted afterwards. The future-version protection test
-intentionally logs one save-version error. `RESULT: ... 0 failures` is the verdict.
+The verifier imports assets and runs gameplay, legacy-save, art, breeding, quest,
+order, offline, booster, tutorial, cloud-protocol and settings checks using isolated
+saves. [Testing guide](docs/TESTING.md) lists editor acceptance steps for each system.
+[Art guide](docs/ART_PIPELINE.md) explains GLB swaps and regeneration.
+
+With a desktop display, capture the actual full garden and compare batching:
+
+```sh
+python tools/profile_garden.py --godot /path/to/godot
+```
+
+## Android export
+
+Install Godot **4.3 export templates**, OpenJDK **17**, and the Android SDK. Configure
+Java/Android SDK paths in Editor Settings, then **Project → Export → Android**.
+The included ARM64 preset targets `builds/monster-garden.apk`; create that directory
+before export. Use debug export for device testing. Keep release signing keys private.
+[Godot's Android export instructions](https://docs.godotengine.org/en/4.3/tutorials/export/exporting_for_android.html).
 
 ## Architecture
 
-| Module | Responsibility |
-| --- | --- |
-| `data/catalog.json` | Names, descriptions, families, economy, unlocks, genes, art specs |
-| `Catalog` | Data loading and validation, stage/availability queries |
-| `Game` | Plot commands, timestamp growth, session orchestration |
-| `Inventory` / `Economy` / `LevelXP` | Gene stacks, atomic transactions, progression |
-| `BuyerOrders` | Courier request, expiry, cooldown, fulfillment |
-| `SaveManager` | Only save interface: `save_data(payload)` / `load_data()` |
-| `AssetFactory` | Exclusive mesh construction and resolution |
-| `GridManager` / `CameraRig` | World presentation and touch navigation |
-| `Events` | Gameplay signals for later quests, analytics and audio |
-| `HUD` | Presentation and command dispatch, no economy mutations |
+Game rules live in `scripts/core`; UI sends commands and displays signals.
+`Events` is the shared signal surface. New state registers in `Game.SAVE_MODULES`
+and migrates in `SaveManager`. `AssetFactory` owns all mesh resolution/construction;
+`GardenArt` is its private geometry helper. Static pieces batch into vertex-colored
+surfaces; plant roots still animate independently. Plot holders and particle emitters
+are reused rather than rebuilt every frame.
 
-## Roadmap / boundaries
-
-The next content/system phases from the design brief are **not implemented**:
-100+ species and event unlock manager; breeding bench; quests/dailies; a three-slot
-order board with gene requests and reputation; Android notifications; gems/boosters;
-cloud save/auth; audio/particles; quest-driven tutorial; settings/analytics and real
-Android profiling. There are no pretend cloud or purchase integrations.
-
-Breeding integration is easier because planted instances and harvested stacks already
-retain normalized genes. Species-only selling/order fulfillment currently consumes
-stacks in reverse insertion order; a breeding bench will need explicit stack-key
-selection so the player controls which genes are consumed.
-
-Original monster geometry and icon are authored for this project. Godot is MIT-licensed.
+This repository started empty. The actual foundation v1 and art v2 save fixtures
+are included; compatibility with an unseen earlier game is not claimed.
+Original project geometry, models, icon and sound; Godot is MIT-licensed.

@@ -4,6 +4,9 @@ const Motion = preload("res://scripts/art/MonsterVisual.gd")
 var _materials: Dictionary = {}
 var _scenes: Dictionary = {}
 var _warned: Dictionary = {}
+var batch_meshes:=bool(ProjectSettings.get_setting("monster_garden/rendering/batch_meshes",true)) and OS.get_environment("MONSTER_GARDEN_UNBATCHED")!="1"
+var _primitive_meshes: Dictionary={}
+var _vertex_material: StandardMaterial3D
 
 func create(id: String, stage: String = "blooming", genes: Dictionary = {}) -> Node3D:
 	var entry := Catalog.get_species(id)
@@ -20,11 +23,12 @@ func create(id: String, stage: String = "blooming", genes: Dictionary = {}) -> N
 	var model := _instantiate_scene(scene_path)
 	if model != null:
 		root.add_child(model)
-		_apply_genes(model, clean)
+		_apply_genes(model, clean, {})
 		model.scale *= float(spec.get("scale", 1.0))
 		root.scale = Vector3.ONE * float(clean.scale)
 		root.set_meta("asset_source", scene_path)
 		root.set_meta("growth_stage", stage)
+		_batch(root)
 		return root
 	var color := Color.from_hsv(float(clean.hue), 0.52, 0.85)
 	var shape := String(spec.get("primitive", "eye"))
@@ -33,6 +37,7 @@ func create(id: String, stage: String = "blooming", genes: Dictionary = {}) -> N
 	root.scale = Vector3.ONE * float(clean.scale) * stage_scale
 	root.set_meta("asset_source", "primitive:" + shape)
 	root.set_meta("growth_stage", stage)
+	_batch(root)
 	return root
 
 func resolve_spec(entry: Dictionary, stage: String) -> Dictionary:
@@ -73,7 +78,7 @@ func _warn_once(key: String, message: String) -> void:
 		_warned[key] = true
 		push_warning(message)
 
-func _apply_genes(node: Node, genes: Dictionary) -> void:
+func _apply_genes(node: Node, genes: Dictionary, instance_materials: Dictionary) -> void:
 	if node is Node3D:
 		var spatial := node as Node3D
 		if String(spatial.name).begins_with("Appendage_"):
@@ -87,16 +92,18 @@ func _apply_genes(node: Node, genes: Dictionary) -> void:
 					var standard := source as StandardMaterial3D
 					if standard.resource_name.begins_with("Gene"):
 						# Never mutate imported/shared materials: genes belong to an instance.
-						var unique := standard.duplicate() as StandardMaterial3D
-						unique.albedo_color = Color.from_hsv(float(genes.hue), 0.48, 0.82)
-						if standard.resource_name.begins_with("GeneGlow"):
-							unique.albedo_color = unique.albedo_color.lightened(0.25)
-							unique.emission_enabled = true
-							unique.emission = unique.albedo_color
-							unique.emission_energy_multiplier = float(genes.glow) * 2.0
-						mesh_instance.set_surface_override_material(surface, unique)
+						var material_key:=standard.get_instance_id()
+						if not instance_materials.has(material_key):
+							var unique:=standard.duplicate() as StandardMaterial3D
+							unique.albedo_color=Color.from_hsv(float(genes.hue),.48,.82)
+							if standard.resource_name.begins_with("GeneGlow"):
+								unique.albedo_color=unique.albedo_color.lightened(.25)
+								unique.emission_enabled=true;unique.emission=unique.albedo_color
+								unique.emission_energy_multiplier=float(genes.glow)*2
+							instance_materials[material_key]=unique
+						mesh_instance.set_surface_override_material(surface,instance_materials[material_key])
 	for child: Node in node.get_children():
-		_apply_genes(child, genes)
+		_apply_genes(child, genes, instance_materials)
 
 func _build_creature(root: Node3D, shape: String, stage: String, color: Color, genes: Dictionary) -> void:
 	var body := material(color)
@@ -208,26 +215,26 @@ func _mesh(parent: Node3D, mesh: Mesh, position: Vector3, mat: Material) -> Mesh
 	return node
 
 func ellipsoid(parent: Node3D, position: Vector3, size: Vector3, mat: Material) -> MeshInstance3D:
-	var mesh := SphereMesh.new()
-	mesh.radius = 1
-	mesh.height = 2
-	mesh.radial_segments = 12
-	mesh.rings = 6
+	if not _primitive_meshes.has("sphere"):
+		var sphere:=SphereMesh.new();sphere.radius=1;sphere.height=2;sphere.radial_segments=12;sphere.rings=6
+		_primitive_meshes["sphere"]=sphere
+	var mesh:=_primitive_meshes["sphere"] as SphereMesh
 	var node := _mesh(parent, mesh, position, mat)
 	node.scale = size
 	return node
 
 func box(parent: Node3D, position: Vector3, size: Vector3, color: Color) -> MeshInstance3D:
-	var mesh := BoxMesh.new()
-	mesh.size = size
-	return _mesh(parent, mesh, position, material(color))
+	if not _primitive_meshes.has("box"): _primitive_meshes["box"]=BoxMesh.new()
+	var node:=_mesh(parent,_primitive_meshes["box"],position,material(color))
+	node.scale=size
+	return node
 
 func cone(parent: Node3D, position: Vector3, radius: float, height: float, mat: Material) -> MeshInstance3D:
-	var mesh := CylinderMesh.new()
-	mesh.top_radius = 0.02
-	mesh.bottom_radius = radius
-	mesh.height = height
-	mesh.radial_segments = 5
+	var key:="cone:%s:%s"%[radius,height]
+	if not _primitive_meshes.has(key):
+		var cylinder:=CylinderMesh.new();cylinder.top_radius=.02;cylinder.bottom_radius=radius;cylinder.height=height;cylinder.radial_segments=5
+		_primitive_meshes[key]=cylinder
+	var mesh:=_primitive_meshes[key] as CylinderMesh
 	return _mesh(parent, mesh, position, mat)
 
 func create_plot(unlocked: bool) -> Node3D:
@@ -240,14 +247,19 @@ func create_plot(unlocked: bool) -> Node3D:
 	else:
 		for x: float in [-.37,.37]:
 			box(root,Vector3(x,.04,-.37),Vector3(.06,.15,.06),Color("ada984"))
+	_batch(root)
 	return root
 
 func create_island() -> Node3D:
-	return preload("res://scripts/art/GardenArt.gd").garden(self)
+	var root: Node3D=preload("res://scripts/art/GardenArt.gd").garden(self)
+	_batch(root)
+	return root
 
 func create_decoration(id: String) -> Node3D:
 	var entry: Dictionary=Decorations.catalog.get(id,{})
-	return preload("res://scripts/art/GardenArt.gd").decoration(self,String(entry.get("mesh","lamp")))
+	var root: Node3D=preload("res://scripts/art/GardenArt.gd").decoration(self,String(entry.get("mesh","lamp")))
+	_batch(root)
+	return root
 
 func create_burst() -> GPUParticles3D:
 	var p:=GPUParticles3D.new()
@@ -264,3 +276,56 @@ func create_burst() -> GPUParticles3D:
 	p.draw_pass_1=mesh
 	p.visibility_aabb=AABB(Vector3(-3,-3,-3),Vector3(6,6,6))
 	return p
+
+func _batch(root: Node3D) -> void:
+	# Bake static pieces per material. The plant root still carries gene scale and sway.
+	if not batch_meshes: return
+	var groups: Dictionary={}
+	for child: Node in root.get_children(): _collect_surfaces(child,Transform3D.IDENTITY,groups)
+	if groups.is_empty(): return
+	var combined:=ArrayMesh.new()
+	for key: int in groups:
+		var surface:=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
+		var pieces: Array=groups[key]
+		surface.set_material(pieces[0].material)
+		for piece: Dictionary in pieces:
+			var source:=piece.mesh as Mesh
+			var surface_index:=int(piece.surface)
+			if piece.has("vertex_tint"):
+				var arrays:=source.surface_get_arrays(surface_index)
+				var vertices: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+				var colors:=PackedColorArray();colors.resize(vertices.size())
+				var tint: Color=piece.vertex_tint
+				# Preserve authored vertex colors, if present, while merging flat materials.
+				var original: Variant=arrays[Mesh.ARRAY_COLOR]
+				for i: int in colors.size(): colors[i]=tint*(original[i] if original is PackedColorArray and original.size()==colors.size() else Color.WHITE)
+				arrays[Mesh.ARRAY_COLOR]=colors
+				var colored:=ArrayMesh.new();colored.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+				surface.append_from(colored,0,piece.transform)
+			else: surface.append_from(source,surface_index,piece.transform)
+		surface.commit(combined)
+	for child: Node in root.get_children(): root.remove_child(child);child.free()
+	_mesh(root,combined,Vector3.ZERO,null)
+func _collect_surfaces(node: Node, transform: Transform3D, groups: Dictionary) -> void:
+	var local:=transform
+	if node is Node3D:
+		var spatial:=node as Node3D
+		if not spatial.visible: return
+		local=transform*spatial.transform
+	if node is MeshInstance3D:
+		var instance:=node as MeshInstance3D
+		if instance.mesh!=null:
+			for index: int in instance.mesh.get_surface_count():
+				var mat:=instance.get_active_material(index)
+				var piece: Dictionary={"mesh":instance.mesh,"surface":index,"material":mat,"transform":local}
+				if mat is StandardMaterial3D:
+					var standard:=mat as StandardMaterial3D
+					if standard.albedo_texture==null and not standard.emission_enabled and standard.transparency==BaseMaterial3D.TRANSPARENCY_DISABLED:
+						if _vertex_material==null:
+							_vertex_material=StandardMaterial3D.new();_vertex_material.vertex_color_use_as_albedo=true;_vertex_material.roughness=.86
+						piece["vertex_tint"]=standard.albedo_color
+						piece.material=_vertex_material
+				var key: int=piece.material.get_instance_id() if piece.material!=null else 0
+				if not groups.has(key): groups[key]=[]
+				groups[key].append(piece)
+	for child: Node in node.get_children(): _collect_surfaces(child,local,groups)

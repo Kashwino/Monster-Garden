@@ -30,7 +30,7 @@ An entry-level `scene` applies to every stage lacking an override. An optional
 force the primitive fallback. Family `mesh` defaults are supported; species
 specs override them. Missing paths, non-scene resources and non-Node3D roots
 fall back to the existing primitive and warn once. Primitive silhouettes:
-`eye`, `fungus`, `crystal`, `tendril`.
+`eye`, `fungus`, `crystal`, `tendril`, `maw`, `spore`, `parasite`, `void`, `chitin`, `coral`.
 
 ## Model conventions
 
@@ -47,7 +47,9 @@ The included GLBs are **original low-poly monster meshes**, generated reproducib
 They range from 826 to 2,114 triangles before optional appendages are hidden.
 No texture downloads or art licenses are needed for these original project assets.
 
-`tools/generate_catalog.py` reproduces the authored catalog and its GLB paths.
+`tools/expand_species.py` reproduces the 120-species catalog and its GLB paths from
+`data/foundation_species.json` plus the generator’s authored family/name data.
+`tools/generate_catalog.py` first rebuilds the legacy foundation source, then expands it.
 If you edit the JSON manually, do not regenerate it unless you also update that source.
 
 ## Checks
@@ -60,6 +62,11 @@ The test intentionally requests a missing model. That warning is expected.
 Godot 4.3's dummy headless renderer may emit null-mesh messages during mesh cleanup;
 those are distinct from script errors and the explicit test verdict.
 
-Save schema 2 adds `catalog_version`. The v1 migration does not change coins,
+The initial art commit’s save schema 2 adds `catalog_version`. The v1 migration does not change coins,
 inventory, genes or growth timestamps. `tests/fixtures/foundation_v1.json` was
 created by running the actual pre-art foundation commit, then loaded in v2 tests.
+
+Static imported pieces may be batched after gene application. Named GLB children are
+not an external API; callers use only the returned root. Textured/emissive surfaces
+retain their materials; flat opaque colours are baked into vertex colours for batching.
+Art tests disable batching to inspect original named nodes and material isolation.

@@ -13,6 +13,8 @@ func _run() -> void:
 		output = "user://"
 	var game := root.get_node("Game")
 	var hud := current_scene.get_node("HUD")
+	root.get_node("Tutorial").skip()
+	hud._close()
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(output.path_join("garden.png"))
 	# Touch-select a specific plot through the real viewport input dispatch.
@@ -32,11 +34,11 @@ func _run() -> void:
 	Input.parse_input_event(up)
 	await process_frame
 	assert(game.selected_plot == 5, "Touch should select plot 6 through viewport dispatch")
-	for tab: String in ["seeds", "basket", "orders", "codex", "guide"]:
+	for tab: String in ["seeds", "basket", "orders", "codex", "breed", "decorations", "settings", "guide"]:
 		hud._open(tab)
 		await process_frame
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(output.path_join(tab + ".png"))
 		hud._close()
-	print("VISUAL SMOKE PASS: rendered garden, five panels, touch plot selection")
+	print("VISUAL SMOKE PASS: rendered garden, eight panels, touch plot selection")
 	quit()

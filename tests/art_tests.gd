@@ -15,6 +15,7 @@ func check(condition: bool, message: String) -> void:
 
 func _run() -> void:
 	var factory := root.get_node("AssetFactory")
+	factory.batch_meshes=false
 	var catalog := root.get_node("Catalog")
 	var stage_paths: Array[String] = []
 	for stage: String in catalog.STAGES:

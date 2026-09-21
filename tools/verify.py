@@ -5,7 +5,7 @@ root=Path(__file__).resolve().parents[1]
 godot=os.environ.get('GODOT_BIN','godot')
 (root/'builds').mkdir(exist_ok=True)
 env=os.environ.copy();env['MONSTER_GARDEN_SAVE_PATH']=str(root/'builds/test-session.json')
-commands=[['--headless','--editor','--path',str(root),'--import','--quit']]+[['--headless','--path',str(root),'--script',s] for s in (sys.argv[1:] or ['tests/run_tests.gd','tests/phase2_tests.gd'])]
+commands=[['--headless','--editor','--path',str(root),'--import','--quit']]+[['--headless','--path',str(root),'--script',s] for s in (sys.argv[1:] or ['tests/run_tests.gd','tests/phase2_tests.gd','tests/tutorial_tests.gd','tests/cloud_tests.gd','tests/art_tests.gd','tests/settings_tests.gd'])]
 failed=False
 for i,args in enumerate(commands):
  p=subprocess.run([godot]+args,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=35)

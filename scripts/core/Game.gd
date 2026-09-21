@@ -3,7 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := GardenLayout.PLOT_COUNT
-const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications", "premium":"Premium", "decorations":"Decorations", "audio":"AudioManager", "tutorial":"Tutorial"}
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications", "premium":"Premium", "decorations":"Decorations", "audio":"AudioManager", "tutorial":"Tutorial", "settings":"Settings"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
@@ -206,3 +206,15 @@ func _apply_cloud(payload: Dictionary) -> void:
 	restored.emit()
 	for i: int in plots.size(): plot_changed.emit(i)
 	Economy.changed.emit()
+
+func reset_garden() -> void:
+	# Explicitly confirmed by the settings UI. Use the same save interface, including cloud conflict stamps.
+	var fresh_plots: Array[Dictionary]=[]
+	for i: int in PLOT_COUNT: fresh_plots.append(empty_plot(i<6))
+	fresh_plots[0]=_plant_data("witness_bud",now()-31)
+	fresh_plots[1]=_plant_data("murmur_cap",now()-10)
+	var fresh: Dictionary={"plots":fresh_plots,"inventory":[],"seeds":[],"coins":120,"progression":{},"discovered":["witness_bud","murmur_cap"]}
+	selected_plot=0;offline_message="";SaveManager.write_blocked=false
+	_apply_cloud(fresh)
+	persist()
+	Events.toast_requested.emit("A new garden is waiting for you.")

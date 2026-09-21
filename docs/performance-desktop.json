@@ -1,0 +1,34 @@
+{
+  "unbatched": {
+    "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+    "decorations": 12,
+    "draw_calls_mean": 3460.61111111111,
+    "frame_ms_median": 47.082,
+    "frame_ms_p95": 54.966,
+    "frames": 90,
+    "node_count": 1113,
+    "particle_pool": 3,
+    "particles_max": 72,
+    "plots": 24,
+    "primitives_mean": 334762.666666667,
+    "renderer": "Compatibility",
+    "resolution": "480x900",
+    "variant": "unbatched"
+  },
+  "batched": {
+    "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+    "decorations": 12,
+    "draw_calls_mean": 478.133333333333,
+    "frame_ms_median": 45.12,
+    "frame_ms_p95": 60.664,
+    "frames": 90,
+    "node_count": 380,
+    "particle_pool": 3,
+    "particles_max": 72,
+    "plots": 24,
+    "primitives_mean": 358336.8,
+    "renderer": "Compatibility",
+    "resolution": "480x900",
+    "variant": "batched"
+  }
+}

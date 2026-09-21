@@ -117,3 +117,31 @@ static func decorations(h: Node) -> void:
 			if destination.item_count>0:
 				destination.custom_minimum_size.y=48;c.add_child(destination)
 				c.add_child(h._button("Place owned ornament (%d)"%Decorations.storage[id],func() -> void: Decorations.place(id,int(destination.get_item_metadata(destination.selected))),true))
+
+static func settings(h: Node) -> void:
+	h._modal_title.text="Settings"
+	var sound: VBoxContainer=h._card("Sound", "Music, creature sounds and interface feedback.")
+	for category: String in AudioManager.volumes:
+		sound.add_child(h._label(category,14))
+		var slider:=HSlider.new();slider.min_value=0;slider.max_value=1;slider.step=.05
+		slider.value=float(AudioManager.volumes[category]);slider.custom_minimum_size.y=44
+		slider.value_changed.connect(func(value: float) -> void: AudioManager.set_volume(category,value))
+		slider.drag_ended.connect(func(_changed: bool) -> void: Game.persist());sound.add_child(slider)
+	var notice: VBoxContainer=h._card("Crop reminders", "A reminder when all your growing plants are ready.")
+	var notifications:=CheckButton.new();notifications.text="Enable notifications";notifications.button_pressed=Notifications.enabled
+	notifications.custom_minimum_size.y=48;notifications.toggled.connect(Notifications.set_enabled);notice.add_child(notifications)
+	if not Notifications.supported(): notice.add_child(h._label("Reminders are unavailable on this build.",12))
+	var graphics: VBoxContainer=h._card("Garden detail", "Reduce effects for a quieter, lighter garden.")
+	var shadows:=CheckButton.new();shadows.text="Show shadows";shadows.button_pressed=Settings.shadows;shadows.custom_minimum_size.y=48
+	shadows.toggled.connect(func(value: bool) -> void: Settings.set_graphics(value,Settings.particle_density));graphics.add_child(shadows)
+	var density:=OptionButton.new();density.add_item("Particles: full");density.add_item("Particles: half");density.add_item("Particles: off")
+	density.selected=0 if Settings.particle_density>.5 else 1 if Settings.particle_density>0 else 2;density.custom_minimum_size.y=48
+	density.item_selected.connect(func(index: int) -> void: Settings.set_graphics(Settings.shadows,[1.0,.5,0.0][index]));graphics.add_child(density)
+	h._card("Credits", "Monster Garden · original creature models, garden geometry, icon and synthesized sounds. Made with Godot 4.3 (MIT). Inspired by the garden layout you shared; no artwork copied from it.")
+	var erase: VBoxContainer=h._card("Start a new garden", "Permanently replaces this garden’s progress, crops, coins and collection. Cloud sync, if enabled, will use the new garden.")
+	erase.add_child(h._button("Reset all progress…",func() -> void:
+		var dialog:=ConfirmationDialog.new();dialog.title="Reset your garden?"
+		dialog.dialog_text="This permanently removes all progress.\nStart again with six starter plots?";dialog.ok_button_text="Reset garden"
+		h._root.add_child(dialog)
+		dialog.confirmed.connect(func() -> void: dialog.queue_free();h._close();Game.reset_garden())
+		dialog.canceled.connect(dialog.queue_free);dialog.popup_centered(Vector2i(380,180))))

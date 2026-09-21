@@ -35,6 +35,9 @@ AudioManager="*res://scripts/services/AudioManager.gd"
 
 Tutorial="*res://scripts/core/Tutorial.gd"
 
+Settings="*res://scripts/core/Settings.gd"
+Analytics="*res://scripts/services/Analytics.gd"
+
 [display]
 window/size/viewport_width=480
 window/size/viewport_height=900

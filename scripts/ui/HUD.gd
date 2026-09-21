@@ -23,6 +23,10 @@ var _toast: PanelContainer
 var _toast_label: Label
 var _toast_tween: Tween
 var _tab: String = ""
+var _page:=0
+var _family:=""
+var _tools: Array[Control]=[]
+var _goals: Control
 var _refresh_pending := false
 var _coin_tween: Tween
 var _display_coins: float = 120
@@ -130,16 +134,16 @@ func _build_header() -> void:
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(margin)
 	var column := _vbox(margin, 10)
-	column.add_child(_label("THE LIVING ESTATE     /     FIELD 01", 12, MUTED))
+	column.add_child(_label("THE LIVING ESTATE     /     FIELD 01", 12, INK))
 	var row := HBoxContainer.new()
 	column.add_child(row)
-	var name_label := _label("Monster Garden", 30)
+	var name_label := _label("Monster Garden", 30, INK)
 	name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(name_label)
 	var help := _button("?", func() -> void: _open("guide"))
 	help.custom_minimum_size = Vector2(48, 48)
 	row.add_child(help)
-	column.add_child(_label("Cultivate the beautifully strange.", 14, MUTED))
+	column.add_child(_label("Cultivate the beautifully strange.", 14, INK))
 	var stats := HBoxContainer.new()
 	stats.add_theme_constant_override("separation", 12)
 	column.add_child(stats)
@@ -166,7 +170,7 @@ func _build_footer() -> void:
 	footer.offset_bottom = -18
 	footer.add_theme_constant_override("separation", 12)
 	_root.add_child(footer)
-	_hint = _label("TAP A PLOT  ·  DRAG TO EXPLORE  ·  PINCH TO ZOOM", 10, MUTED)
+	_hint = _label("TAP A PLOT  ·  DRAG TO EXPLORE  ·  PINCH TO ZOOM", 10, INK)
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	footer.add_child(_hint)
 	var selection := _panel(footer, INK.lightened(0.035))
@@ -298,12 +302,16 @@ func _selected_action() -> void:
 
 func _open(tab: String) -> void:
 	_tab = tab
+	for control: Control in _tools: control.hide()
+	_goals.hide()
+	_page=0
 	_render_modal()
 	_modal.show()
 
 func _close() -> void:
 	_tab = ""
 	_modal.hide()
+	for control: Control in _tools: control.show()
 
 func _queue_modal_refresh() -> void:
 	if not _refresh_pending:
@@ -330,6 +338,8 @@ func _render_modal() -> void:
 		child.queue_free()
 	_modal_title.text = {"seeds": "The seed cabinet", "basket": "Your harvest", "orders": "The night courier", "codex": "Field notes", "guide": "A keeper’s guide"}.get(_tab, "")
 	match _tab:
+		"settings":
+			Extra.settings(self)
 		"decorations":
 			Extra.decorations(self)
 		"boosters":
@@ -346,7 +356,7 @@ func _render_modal() -> void:
 				c.add_child(_button("Plant owned seed", func() -> void:
 					if Game.plant_seed(Game.selected_plot, seed.key): _close()
 					else: show_toast("Select an empty purchased plot first."), true))
-			for id: String in Catalog.species:
+			for id: String in _catalog_page():
 				var entry := Catalog.get_species(id)
 				var available := Catalog.is_available(id, LevelXP.level)
 				var column := _card(entry.name, entry.description, Color.from_hsv(float(entry.genes.hue), 0.3, 0.95) if available else MUTED)
@@ -369,10 +379,13 @@ func _render_modal() -> void:
 			Extra.orders(self)
 		"codex":
 			_card("%d / %d specimens recorded" % [Game.discovered.size(), Catalog.species.size()], "Ten families. One hundred and twenty strange lives. Harvest a species to record it in your field notes.", LIME)
-			for id: String in Catalog.species:
+			for id: String in _catalog_page():
 				var entry := Catalog.get_species(id)
 				var found := Game.discovered.has(id)
-				_card(entry.name if found else "Unknown · " + entry.family.capitalize(), entry.description if found else "%s · %s" % [entry.rarity, UnlockManager.unlock_text(id)], CREAM if found else MUTED)
+				var c:=_card(entry.name, entry.description if found else "%s · %s" % [entry.rarity, UnlockManager.unlock_text(id)], CREAM if found else MUTED)
+				var icon:=Control.new();icon.set_script(preload("res://scripts/ui/SpecimenIcon.gd"))
+				icon.family=entry.family;icon.hue=float(entry.genes.hue);icon.discovered=found
+				c.add_child(icon);c.move_child(icon,0)
 		"guide":
 			_card("01 / Wake the garden", "Tap the Witness Bud marked READY, then Harvest. Choose an empty plot and plant another seed. Common plants take 30 seconds, even when the game is closed.")
 			_card("02 / Feed the strange", "Sell harvested plants from your basket, or fulfil a courier order for more coins. Harvest and delivery XP unlock new species and plots.")
@@ -398,6 +411,7 @@ func _duration(seconds: int) -> String:
 
 func _build_goals() -> void:
 	var goals := PanelContainer.new()
+	_goals=goals
 	goals.set_script(preload("res://scripts/ui/QuestPanel.gd"))
 	goals.position=Vector2(12,280)
 	goals.size=Vector2(300,370)
@@ -409,6 +423,9 @@ func _build_goals() -> void:
 	_root.add_child(toggle)
 	var atelier:=_button("Decorate",_open.bind("decorations"))
 	atelier.position=Vector2(108,220);_root.add_child(atelier)
+	var settings:=_button("Settings",_open.bind("settings"))
+	settings.position=Vector2(348,220);_root.add_child(settings)
+	_tools.assign([toggle,atelier,settings])
 
 func _away_summary(summary: Dictionary) -> void:
 	var dialog := AcceptDialog.new()
@@ -437,3 +454,21 @@ func _level_flash(_value: int) -> void:
 	flash.color=Color(.85,1,.55,.25);flash.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	flash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);_root.add_child(flash)
 	var tween:=create_tween();tween.tween_property(flash,"color:a",0.0,.8);tween.tween_callback(flash.queue_free)
+
+func _catalog_page() -> Array[String]:
+	var filter:=OptionButton.new();filter.add_item("All families")
+	for family: String in Catalog.families: filter.add_item(family.capitalize())
+	filter.selected=0 if _family.is_empty() else Catalog.families.keys().find(_family)+1
+	filter.custom_minimum_size.y=48
+	filter.item_selected.connect(func(index: int) -> void:
+		_family="" if index==0 else String(Catalog.families.keys()[index-1]);_page=0;_queue_modal_refresh())
+	_modal_body.add_child(filter)
+	var ids: Array[String]=[]
+	for id: String in Catalog.species:
+		if _family.is_empty() or Catalog.species[id].family==_family: ids.append(id)
+	var pages:=maxi(1,int(ceil(ids.size()/12.0)));_page=clampi(_page,0,pages-1)
+	var row:=HBoxContainer.new();_modal_body.add_child(row)
+	var back:=_button("‹",func() -> void: _page-=1;_queue_modal_refresh());back.disabled=_page==0;row.add_child(back)
+	var label:=_label("  Page %d / %d  "%[_page+1,pages],14);label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(label)
+	var next:=_button("›",func() -> void: _page+=1;_queue_modal_refresh());next.disabled=_page==pages-1;row.add_child(next)
+	return ids.slice(_page*12,mini(ids.size(),(_page+1)*12))

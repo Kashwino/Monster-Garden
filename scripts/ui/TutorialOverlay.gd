@@ -18,12 +18,14 @@ func _ready() -> void:
 	_line.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;row.add_child(_line)
 	row.add_child(hud._button("Skip",Tutorial.skip))
 	Tutorial.changed.connect(_refresh)
-	Game.restored.connect(_refresh)
+	Game.restored.connect(func() -> void: _last_id="";_refresh())
 	_refresh()
 func _refresh() -> void:
 	visible=not Tutorial.completed
 	hud._modal.offset_top=286 if visible else 216
-	if not visible: return
+	if not visible:
+		_last_id=""
+		return
 	_line.text="%d/6 · %s"%[Tutorial.step+1,Tutorial.definition().get("title","")]
 	if _last_id!=Tutorial.current_id():
 		_last_id=Tutorial.current_id();call_deferred("_focus")

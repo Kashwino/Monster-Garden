@@ -30,4 +30,8 @@ for i,(sid,name,desc,family,level,grow,yield_,sell,cost,xp,hue) in enumerate(row
         genes=dict(hue=hue,scale=0.85+(i%3)*0.1,appendages=3+i%4,glow=0.12+(i%4)*0.15,speed=0.7+(i%3)*0.3),
         mesh=dict(primitive=families[family]['silhouette'])))
 species[0]['mesh']['stages']={s:{'scene':f'res://assets/monsters/witness/{s}.glb'} for s in ['seed','sprout','juvenile','mature','blooming']}
-(ROOT/'data/catalog.json').write_text(json.dumps(dict(version=2,families=families,species=species),indent=2)+'\n')
+(ROOT/'data/foundation_species.json').write_text(json.dumps(dict(version=2,families=families,species=species),indent=2)+'\n')
+
+# Rebuild the expanded library as well; never accidentally shrink the live catalog.
+import runpy
+runpy.run_path(str(ROOT/'tools/expand_species.py'))
