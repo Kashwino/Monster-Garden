@@ -39,6 +39,7 @@ func _ready() -> void:
 	_build_footer()
 	_build_modal()
 	_build_toast()
+	_build_goals()
 	Game.restored.connect(_on_restored)
 	Game.selection_changed.connect(func(_i: int) -> void: _refresh())
 	Game.plot_changed.connect(func(_i: int) -> void: _refresh())
@@ -396,3 +397,15 @@ func _duration(seconds: int) -> String:
 	if seconds < 3600:
 		return "%dm %02ds" % [seconds / 60, seconds % 60]
 	return "%dh %02dm" % [seconds / 3600, (seconds % 3600) / 60]
+
+func _build_goals() -> void:
+	var goals := PanelContainer.new()
+	goals.set_script(preload("res://scripts/ui/QuestPanel.gd"))
+	goals.position=Vector2(12,280)
+	goals.size=Vector2(300,370)
+	_root.add_child(goals)
+	goals.hide()
+	var toggle := _button("Goals",func() -> void: goals.visible=not goals.visible)
+	toggle.position=Vector2(18,220)
+	toggle.custom_minimum_size=Vector2(80,44)
+	_root.add_child(toggle)

@@ -1,0 +1,308 @@
+[
+  {
+    "id": "keeper_harvest",
+    "title": "Your first strange harvest",
+    "objective": {
+      "type": "harvest",
+      "count": 2,
+      "target": ""
+    },
+    "reward": {
+      "coins": 20,
+      "xp": 5,
+      "seeds": {
+        "witness_bud": 2
+      }
+    },
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "keeper_orders",
+    "title": "A parcel for the courier",
+    "objective": {
+      "type": "order",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 35,
+      "xp": 10
+    },
+    "unlock_level": 1,
+    "after": "keeper_harvest",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "keeper_graft",
+    "title": "Two lives become one",
+    "objective": {
+      "type": "breed",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 50,
+      "xp": 15,
+      "gems": 2
+    },
+    "unlock_level": 2,
+    "after": "keeper_orders",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "keeper_decor",
+    "title": "A place to belong",
+    "objective": {
+      "type": "decoration",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 60,
+      "xp": 20
+    },
+    "unlock_level": 2,
+    "after": "keeper_graft",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "keeper_level",
+    "title": "A capable keeper",
+    "objective": {
+      "type": "level",
+      "count": 5,
+      "target": ""
+    },
+    "reward": {
+      "coins": 90,
+      "xp": 20,
+      "gems": 3
+    },
+    "unlock_level": 2,
+    "after": "keeper_decor",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "keeper_master",
+    "title": "A flourishing nursery",
+    "objective": {
+      "type": "harvest",
+      "count": 40,
+      "target": ""
+    },
+    "reward": {
+      "coins": 150,
+      "xp": 40,
+      "gems": 5
+    },
+    "unlock_level": 5,
+    "after": "keeper_level",
+    "is_tutorial": false,
+    "focus": "action"
+  },
+  {
+    "id": "daily_harvest",
+    "title": "Gather six creatures",
+    "objective": {
+      "type": "harvest",
+      "count": 6,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "daily_sell",
+    "title": "Send six crops to market",
+    "objective": {
+      "type": "sell",
+      "count": 6,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "daily_orders",
+    "title": "Complete two deliveries",
+    "objective": {
+      "type": "order",
+      "count": 2,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "daily_breed",
+    "title": "Graft a new seed",
+    "objective": {
+      "type": "breed",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 2,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "daily_decor",
+    "title": "Place a decoration",
+    "objective": {
+      "type": "decoration",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 2,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "daily_discover",
+    "title": "Discover a new species",
+    "objective": {
+      "type": "discover",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {
+      "coins": 30,
+      "xp": 10,
+      "gems": 1
+    },
+    "unlock_level": 2,
+    "after": "",
+    "is_tutorial": false,
+    "focus": "action",
+    "daily": true
+  },
+  {
+    "id": "tutorial_plant",
+    "title": "Choose an empty plot and plant Witness Bud.",
+    "objective": {
+      "type": "plant",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "plant"
+  },
+  {
+    "id": "tutorial_wait",
+    "title": "Let your new creature grow.",
+    "objective": {
+      "type": "ready",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "plot"
+  },
+  {
+    "id": "tutorial_harvest",
+    "title": "Harvest your fully grown creature.",
+    "objective": {
+      "type": "harvest",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "action"
+  },
+  {
+    "id": "tutorial_sell",
+    "title": "Sell one crop from your basket.",
+    "objective": {
+      "type": "sell",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "basket"
+  },
+  {
+    "id": "tutorial_order",
+    "title": "Fulfil your first courier order.",
+    "objective": {
+      "type": "order",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "orders"
+  },
+  {
+    "id": "tutorial_breed",
+    "title": "Build a bench and graft your first seed.",
+    "objective": {
+      "type": "breed",
+      "count": 1,
+      "target": ""
+    },
+    "reward": {},
+    "unlock_level": 1,
+    "after": "",
+    "is_tutorial": true,
+    "focus": "breed"
+  }
+]

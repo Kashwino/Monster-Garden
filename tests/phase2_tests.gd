@@ -14,6 +14,7 @@ func run() -> void:
 	var unlock := root.get_node("UnlockManager")
 	var save := root.get_node("SaveManager")
 	var game := root.get_node("Game")
+	unlock.granted.clear()
 	check(catalog.species.size() == 120 and catalog.families.size() == 10, "120 species / ten families")
 	check(catalog.errors.is_empty(), "catalog references and unlocks validate")
 	var level_count := 0
@@ -53,6 +54,21 @@ func run() -> void:
 	check(game.plant_seed(2,inventory.seeds[0].key), "bred seed plants without another purchase")
 	check(game.plots[2].genes==result.genes, "planted offspring retains genes")
 	breeding.recipes=original_recipes
+	var quests := root.get_node("QuestManager")
+	quests.restore({})
+	check(quests.daily_ids.size()==3, "exactly three UTC daily goals")
+	quests.record("harvest", 2, "witness_bud")
+	check(quests.can_claim("keeper_harvest"), "harvest signal objective becomes claimable")
+	check(quests.claim("keeper_harvest") and not quests.claim("keeper_harvest"), "quest rewards can only be claimed once")
+	quests.record("order",1)
+	check(quests.can_claim("keeper_orders"), "quest chain unlocks its successor")
+	quests.claim("keeper_orders")
+	var old_date: String=quests.utc_date
+	quests.reconcile(game.now()+86400)
+	check(quests.utc_date>old_date and quests.daily_ids.size()==3, "daily goals rotate on next UTC date")
+	check(quests.claimed.has("keeper_harvest"), "daily rotation preserves progression claims")
+	quests.reconcile(game.now())
+	check(quests.utc_date>old_date, "clock rollback cannot reclaim yesterday’s daily rewards")
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary

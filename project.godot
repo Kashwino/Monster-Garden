@@ -22,6 +22,8 @@ BuyerOrders="*res://scripts/core/BuyerOrders.gd"
 Breeding="*res://scripts/core/Breeding.gd"
 DiscoveryRewards="*res://scripts/core/DiscoveryRewards.gd"
 
+QuestManager="*res://scripts/core/QuestManager.gd"
+
 [display]
 window/size/viewport_width=480
 window/size/viewport_height=900

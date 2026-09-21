@@ -3,7 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := 16
-const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding"}
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
