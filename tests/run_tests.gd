@@ -39,6 +39,7 @@ func _run() -> void:
 	check(not game.plant(0, "witness_bud"), "occupied plot rejects planting")
 	check(not game.harvest(0), "growing plant cannot be harvested")
 	check(not game.plant(1, "echo_obelisk"), "level lock enforced outside UI")
+	root.get_node("Premium").rng.seed=123
 	game.plots[0].planted_at = game.now() - 31
 	game.plots[0].ready_at = game.now() - 1
 	check(game.harvest(0), "timestamp completion allows harvest")

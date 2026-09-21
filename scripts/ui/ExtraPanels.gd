@@ -68,3 +68,23 @@ static func orders(h: Node) -> void:
 		fulfill.disabled=not BuyerOrders.can_fulfill(i)
 		c.add_child(fulfill)
 		c.add_child(h._button("Reroll · %d coins"%BuyerOrders.reroll_cost(),func() -> void: BuyerOrders.reroll(i)))
+		c.add_child(h._button("Instant reroll · 2 gems",func() -> void: BuyerOrders.reroll(i,"gems")))
+
+static func boosters(h: Node) -> void:
+	h._modal_title.text="Gems & growth"
+	var c: VBoxContainer=h._card("%d gems · %d fertiliser"%[Premium.gems,Premium.fertiliser],"Earn gems through keeper levels, quests and first discoveries.")
+	var index:=Game.selected_plot
+	if Premium.can_boost(index):
+		c.add_child(h._button("Finish selected crop · %d gems"%Premium.finish_cost(index),func() -> void: Premium.finish(index);h._queue_modal_refresh(),true))
+		c.add_child(h._button("Apply fertiliser · 35% less waiting",func() -> void: Premium.apply_fertiliser(index);h._queue_modal_refresh()))
+		c.add_child(h._label("Fertiliser also increases harvest mutations.",12))
+	if not Game.plots[index].unlocked:
+		var plot_buy: Button=h._button("Buy plot · %d gems"%Premium.plot_cost(index),func() -> void: Game.unlock_plot(index,"gems");h._queue_modal_refresh())
+		plot_buy.disabled=LevelXP.level<Game.plot_unlock_level(index)
+		c.add_child(plot_buy)
+	c.add_child(h._button("Buy fertiliser · 20 coins",func() -> void: Premium.buy_fertiliser();h._queue_modal_refresh()))
+	for id: String in UnlockManager.available_ids():
+		var cost:=Premium.rare_seed_cost(id)
+		if cost<=0: continue
+		var box: VBoxContainer=h._card(Catalog.get_species(id).name,"Rare seed · standard genes")
+		box.add_child(h._button("Buy seed · %d gems"%cost,func() -> void: Premium.buy_rare_seed(id)))

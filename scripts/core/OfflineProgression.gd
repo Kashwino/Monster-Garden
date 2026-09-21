@@ -8,7 +8,7 @@ func _ready() -> void:
 	_timer=Timer.new();_timer.one_shot=true
 	_timer.timeout.connect(_tick);add_child(_timer)
 	Game.restored.connect(_initial)
-	Game.plot_changed.connect(func(_i: int) -> void: _schedule())
+	Game.plot_changed.connect(func(_i: int) -> void: _tick())
 	Events.application_paused.connect(_pause)
 	Events.application_resumed.connect(reconcile)
 func _key(index: int) -> String:

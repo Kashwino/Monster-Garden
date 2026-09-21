@@ -44,6 +44,7 @@ func _ready() -> void:
 	Game.selection_changed.connect(func(_i: int) -> void: _refresh())
 	Game.plot_changed.connect(func(_i: int) -> void: _refresh())
 	Economy.changed.connect(_roll_coins)
+	Premium.changed.connect(_queue_modal_refresh)
 	LevelXP.changed.connect(_refresh)
 	Inventory.changed.connect(_queue_modal_refresh)
 	BuyerOrders.changed.connect(_queue_modal_refresh)
@@ -322,11 +323,14 @@ func _render_modal() -> void:
 		child.queue_free()
 	_modal_title.text = {"seeds": "The seed cabinet", "basket": "Your harvest", "orders": "The night courier", "codex": "Field notes", "guide": "A keeper’s guide"}.get(_tab, "")
 	match _tab:
+		"boosters":
+			Extra.boosters(self)
 		"breed":
 			Extra.breed(self)
 		"events":
 			Extra.events(self)
 		"seeds":
+			_modal_body.add_child(_button("Gems & fertiliser · %d gems" % Premium.gems, _open.bind("boosters")))
 			_modal_body.add_child(_button("Seasonal events & spore drifts", _open.bind("events")))
 			for seed: Dictionary in Inventory.seeds:
 				var c := _card("Owned seed · " + Catalog.get_species(seed.species_id).name, "%d seeds · gene glow %.2f" % [seed.quantity, seed.genes.glow])

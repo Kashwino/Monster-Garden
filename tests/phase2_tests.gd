@@ -108,6 +108,24 @@ func run() -> void:
 		if plot.species_id!="" and float(plot.ready_at)>game.now(): latest=maxi(latest,int(plot.ready_at))
 	check(notices.scheduled_at==latest, "notification uses longest pending completion")
 	check(not notices.supported(), "native notification is a no-op in editor")
+	var premium:=root.get_node("Premium")
+	premium.gems=100
+	premium.fertiliser=2
+	game.plots[4]=game._plant_data("witness_bud",game.now())
+	var old_remaining: int=game.remaining(4)
+	check(premium.apply_fertiliser(4), "fertiliser applies to a growing plot")
+	check(game.remaining(4)<old_remaining and float(game.plots[4].mutation_bonus)>.0, "fertiliser reduces time and raises mutation probability")
+	check(not premium.apply_fertiliser(4) and premium.fertiliser==1, "fertiliser cannot be stacked on the same crop")
+	check(premium.finish(4) and game.progress(4)>=1, "gem instant finish completes growth")
+	var gems_before: int=premium.gems
+	check(not premium.finish(4) and premium.gems==gems_before, "finished crops do not charge gems again")
+	level.level=1
+	game.plots[6]=game.empty_plot(false)
+	check(not game.unlock_plot(6,"gems") and premium.gems==gems_before, "gems never bypass plot level requirements")
+	check(not game.unlock_plot(6,"coins"), "coins never bypass plot level requirements")
+	level.level=game.plot_unlock_level(6)
+	check(game.unlock_plot(6,"coins"), "plot requires level plus purchase")
+	check(not root.get_node("IAPService").purchase("gems_small").ok, "IAP seam never pretends a purchase succeeded")
 	# Reload all earlier schemas through the only save interface.
 	for name: String in ["foundation_v1.json", "art_v2.json"]:
 		var original: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/"+name)) as Dictionary

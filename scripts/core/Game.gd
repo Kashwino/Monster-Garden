@@ -3,7 +3,7 @@ signal plot_changed(index: int)
 signal selection_changed(index: int)
 signal restored
 const PLOT_COUNT := 16
-const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications"}
+const SAVE_MODULES := {"unlocks":"UnlockManager", "breeding":"Breeding", "quests":"QuestManager", "clock":"OfflineProgression", "notifications":"Notifications", "premium":"Premium"}
 var plots: Array[Dictionary] = []
 var selected_plot: int = 0
 var discovered: Array[String] = []
@@ -20,7 +20,7 @@ func now() -> float:
 	return floorf(Time.get_unix_time_from_system())
 
 func empty_plot(unlocked: bool) -> Dictionary:
-	return {"unlocked": unlocked, "species_id": "", "planted_at": 0.0, "ready_at": 0.0, "genes": {}}
+	return {"unlocked": unlocked, "species_id": "", "planted_at": 0.0, "ready_at": 0.0, "genes": {}, "fertilised":false, "mutation_bonus":0.0}
 
 func start_session() -> void:
 	var payload := SaveManager.load_data()
@@ -78,6 +78,8 @@ func progress(index: int) -> float:
 	var plot := plots[index]
 	if plot.species_id == "":
 		return 0.0
+	if now() >= float(plot.ready_at):
+		return 1.0
 	var duration := maxf(1.0, float(plot.ready_at) - float(plot.planted_at))
 	return clampf((now() - float(plot.planted_at)) / duration, 0.0, 1.0)
 
@@ -90,6 +92,7 @@ func harvest(index: int) -> bool:
 	var plot := plots[index].duplicate(true)
 	var entry := Catalog.get_species(plot.species_id)
 	plots[index] = empty_plot(true)
+	plot.genes = Premium.harvest_genes(plot)
 	Inventory.add_crop(plot.species_id, plot.genes, int(entry.yield))
 	LevelXP.add_xp(int(entry.xp))
 	discover(plot.species_id)
@@ -125,11 +128,17 @@ func plant_seed(index: int, key: String) -> bool:
 func plot_unlock_cost(index: int) -> int:
 	return 35 + maxi(0, index - 6) * 15
 
-func unlock_plot(index: int) -> bool:
+func unlock_plot(index: int, currency: String = "coins") -> bool:
 	if index < 0 or index >= plots.size() or plots[index].unlocked:
 		return false
-	if LevelXP.level < plot_unlock_level(index) or not Economy.spend(plot_unlock_cost(index)):
+	if LevelXP.level < plot_unlock_level(index):
 		return false
+	if currency == "coins":
+		if not Economy.spend(plot_unlock_cost(index)): return false
+	elif currency == "gems":
+		if not Premium.spend(Premium.plot_cost(index)): return false
+	else: return false
+	Events.purchase_made.emit("plot_%d" % index, currency, plot_unlock_cost(index) if currency=="coins" else Premium.plot_cost(index))
 	plots[index].unlocked = true
 	plot_changed.emit(index)
 	persist()
